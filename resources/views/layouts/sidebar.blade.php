@@ -22,7 +22,7 @@
                 <i class="fas fa-home text-lg"></i>
                 <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Dashboard</span>
             </a>
-            <a href="#" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
+            <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
                 <i class="fas fa-box text-lg"></i>
                 <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Product</span>
             </a>

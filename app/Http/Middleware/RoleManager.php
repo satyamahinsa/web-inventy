@@ -16,33 +16,10 @@ class RoleManager
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if(!Auth::check()){
-            return redirect()->route('login');
+        if (auth()->check() && auth()->user()->role == $role) {
+            return $next($request);
         }
-
-        $authUserRole = Auth::user()->role;
-
-        switch($role){
-            case 'admin':
-                if($authUserRole == 'admin'){
-                    return $next($request);
-                }
-                break;
-            case 'user':
-                if($authUserRole == 'user'){
-                    return $next($request);
-                }
-                break;
-        }
-
-        switch($authUserRole){
-            case 'admin':
-                return redirect()->route('admin');
-            case 'user':
-                return redirect()->route('dashboard'); 
-        }
-
-        return redirect()->route('login');
-
+        return redirect('/'); 
     }
+
 }

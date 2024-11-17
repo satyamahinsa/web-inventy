@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,23 +24,25 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
+        if (Auth::attempt($request->only('email', 'password'))) {
 
-        $authUserRole = Auth::user()->role;
+            $request->session()->regenerate();
 
-        if($authUserRole == 'user'){
-            return redirect()->intended(route('admin', absolute: false));
-        }else{
-            return redirect()->intended(route('dashboard', absolute: true));
+            session()->flash('loginstatus', 'Login berhasil!');
+
+            $user = auth()->user();
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard.admin');
+            } elseif ($user->role === 'user') {
+                return redirect()->route('dashboard.user');
+            }
+
+            abort(403, 'Unauthorized access');
         }
-        
-        if($authUserRole == 'admin'){
-            return redirect()->intended(route('user', absolute: false));
-        }else{
-            return redirect()->intended(route('admindashboard', absolute: true));
-        }
+        return back()->withErrors([
+            'email' => 'Email atau kata sandi yang Anda masukkan tidak valid.',
+        ])->onlyInput('email'); 
     }
 
     /**
