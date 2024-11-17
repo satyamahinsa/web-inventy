@@ -1,0 +1,97 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    width: 100%;
+    background: #FF7F00; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.container {
+    max-width: 400px; 
+    width: 90%; 
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    padding: 2rem; 
+    margin: 20px;
+}
+
+.registration {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.registration img {
+    display: block;
+    margin: 0rem; 
+    max-width: 60%; 
+    height: auto; 
+}
+
+.header {
+    font-size: 1.8rem; 
+    font-weight: 500;
+    margin: 1rem 0; 
+    color: #FF7F00; 
+}
+
+.registration input,
+.registration select {
+    height: 50px; 
+    width: 100%;
+    padding: 0 10px; 
+    font-size: 16px; 
+    margin-bottom: 1rem; 
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.registration input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.signup {
+    font-size: 16px; 
+    text-align: center;
+}
+
+.signup a {
+    color: #FF7F00; 
+    text-decoration: none;
+}
+
+.signup a:hover {
+    text-decoration: underline;
+}
+
+.button {
+    color: #fff;
+    background: #FFA500; 
+    font-size: 1rem; 
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 1rem; 
+    cursor: pointer;
+    transition: background-color 0.4s, transform 0.2s;
+    height: 50px; 
+    border: none; 
+    border-radius: 6px; 
+    width: 100%; 
+}
+
+.button:hover {
+    background: #FF7F00; 
+    transform: scale(1.05); 
+}
