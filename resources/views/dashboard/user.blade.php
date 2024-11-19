@@ -1,73 +1,181 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-            {{ __('User Dashboard') }}
+            {{ __('Dashboard') }}
         </h2>
+        <div class="flex items-center">
+            <button class="mr-6">
+                <i class="fas fa-bell text-gray-500"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
+                <span class="text-gray-900 font-medium dark:text-white">{{ Auth::user()->name }}</span>
+            </div>
+        </div>
     </x-slot>
 
     <div class="container mx-auto my-5 px-4">
-        <div class="p-6 text-gray-900 bg-white rounded-lg shadow dark:bg-gray-800 mb-6">
-            @auth
-                <div style="font-size: 1.2rem;">
-                    {{ __('Selamat datang, ') }}
-                    <span class="welcome-message font-bold uppercase" style="font-size: 1.2rem;">{{ Auth::user()->name }}</span>
-                </div>
-            @else
-                <div>{{ __("You're not logged in!") }}</div>
-            @endauth
+        <!-- Hero Section -->
+        <div class="bg-green-500 dark:bg-green-800 p-6 rounded-lg shadow mb-6">
+            <h1 class="text-2xl font-bold text-white">Selamat Datang, {{ Auth::user()->name }}</h1>
+            <p class="text-sm text-white mt-2">Temukan produk terbaik kami untuk memenuhi kebutuhan Anda!</p>
         </div>
 
-        <div class="bg-white p-6 rounded-lg shadow mb-6 dark:bg-gray-800">
-            <h3 class="text-xl font-semibold mb-4">Performance Improvement Plans</h3>
-            <p class="text-sm text-gray-600 mb-6 dark:text-gray-300">Progress over the last 24 months.</p>
-            <div class="h-32 mt-4 bg-gray-100 rounded-lg dark:bg-gray-700"></div>
+        <div class="relative w-full overflow-hidden rounded-lg shadow-lg mb-6">
+            <!-- Wrapper untuk carousel -->
+            <div class="relative mx-auto flex transition-transform duration-500 ease-in-out" id="carousel-wrapper">
+                <!-- Slide 1 -->
+                <div class="flex-none w-full bg-purple-200 py-8 px-20 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-purple-700 font-medium text-lg">Official Store</h4>
+                        <h2 class="text-black font-extrabold text-3xl">Pasti Promo Pasti Ori</h2>
+                        <a href="#" class="text-purple-900 font-semibold mt-2 inline-block">Lihat Promo Lainnya</a>
+                    </div>
+                    <img src="path/to/image1.png" alt="Promo Image" class="h-32 object-contain">
+                </div>
+                <!-- Slide 2 -->
+                <div class="flex-none w-full bg-blue-200 py-8 px-20 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-blue-700 font-medium text-lg">Special Deals</h4>
+                        <h2 class="text-black font-extrabold text-3xl">Diskon Hingga 50%</h2>
+                        <a href="#" class="text-blue-900 font-semibold mt-2 inline-block">Belanja Sekarang</a>
+                    </div>
+                    <img src="path/to/image2.png" alt="Promo Image" class="h-32 object-contain">
+                </div>
+                <!-- Slide 3 -->
+                <div class="flex-none w-full bg-green-200 py-8 px-20 flex items-center justify-between">
+                    <div>
+                        <h4 class="text-green-700 font-medium text-lg">Limited Time</h4>
+                        <h2 class="text-black font-extrabold text-3xl">Flash Sale Hari Ini</h2>
+                        <a href="#" class="text-green-900 font-semibold mt-2 inline-block">Lihat Sekarang</a>
+                    </div>
+                    <img src="path/to/image3.png" alt="Promo Image" class="h-32 object-contain">
+                </div>
+            </div>
+        
+            <!-- Navigasi -->
+            <button id="prevBtn" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+                <span>&#10094;</span>
+            </button>
+            <button id="nextBtn" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+                <span>&#10095;</span>
+            </button>
         </div>
 
-        <div class="grid grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow dark:bg-gray-800">
-                <h3 class="text-xl font-semibold mb-4">Top Penjualan Produk</h3>
-                <div class="h-40 w-40 mx-auto bg-gray-200 rounded-full flex items-center justify-center dark:bg-gray-700">
-                    <p class="text-lg font-semibold">Chart Placeholder</p>
+        <div class="bg-amber-100 p-6 rounded-lg shadow-lg mb-6 relative">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-amber-800">Flash Sale</h2>
+                    <p class="text-gray-600">Berakhir dalam 
+                        <span class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:05:53</span>
+                    </p>
                 </div>
-                <ul class="mt-4">
-                    <li class="flex justify-between py-1"><span>Elektronik</span><span class="font-semibold">40%</span></li>
-                    <li class="flex justify-between py-1"><span>Pakaian</span><span class="font-semibold">35%</span></li>
-                    <li class="flex justify-between py-1"><span>Alat Rumah Tangga</span><span class="font-semibold">25%</span></li>
-                </ul>
+                <a href="#" class="text-amber-600 font-medium hover:underline">Lihat Semua</a>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow dark:bg-gray-800">
-                <h3 class="text-xl font-semibold mb-4">Top Products</h3>
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span>01. Home Decor Range</span>
-                        <div class="flex items-center space-x-2"><div class="w-24 h-3 bg-yellow-300 rounded-full dark:bg-yellow-600"></div><span class="text-xs font-semibold">46%</span></div>
+        
+            <!-- Wrapper untuk Carousel Flash Sale -->
+            <div class="mt-4 overflow-hidden relative">
+                <div id="flash-sale-wrapper" class="flex gap-4 transition-transform duration-500 ease-in-out">
+                    <!-- Kartu Promo -->
+                    <div class="flex-none w-48 bg-amber-300 rounded-lg p-4 flex flex-col items-center justify-center shadow">
+                        <h4 class="text-amber-700 font-bold text-lg">FLASH SALE</h4>
+                        <p class="text-amber-900 text-center text-2xl font-extrabold mt-2">Serba Diskon</p>
+                        <button class="bg-green-500 text-white font-medium px-4 py-2 rounded mt-4 hover:bg-green-600">
+                            Cek Promo
+                        </button>
+                        <p class="text-xs text-gray-700 mt-2">*S&K Berlaku</p>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <span>02. Disney Princess Dress</span>
-                        <div class="flex items-center space-x-2"><div class="w-16 h-3 bg-green-300 rounded-full dark:bg-green-600"></div><span class="text-xs font-semibold">17%</span></div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>03. Bathroom Essentials</span>
-                        <div class="flex items-center space-x-2"><div class="w-20 h-3 bg-blue-300 rounded-full dark:bg-blue-600"></div><span class="text-xs font-semibold">19%</span></div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>04. Apple Smartwatch</span>
-                        <div class="flex items-center space-x-2"><div class="w-18 h-3 bg-pink-300 rounded-full dark:bg-pink-600"></div><span class="text-xs font-semibold">29%</span></div>
-                    </div>
+        
+                    <!-- Produk Flash Sale -->
+                    @foreach ($flashSaleProducts as $product)
+                        <div class="flex-none w-52 bg-white rounded-lg shadow p-4">
+                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="h-32 w-full object-cover rounded-md">
+                            <div class="mt-2">
+                                <h4 class="text-sm font-semibold truncate">{{ $product->name }}</h4>
+                                <p class="text-lg font-bold text-red-600 mt-1">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                <p class="text-sm text-gray-500 line-through">
+                                    Rp{{ number_format($product->original_price, 0, ',', '.') }}
+                                </p>
+                                <p class="text-sm text-red-500 font-semibold">{{ $product->discount }}% OFF</p>
+                                <p class="text-xs text-gray-600 mt-2">Segera Habis</p>
+                                <div class="bg-gray-200 h-2 w-full rounded-full mt-1">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: {{ $product->stock_percentage }}%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
+        
+            <!-- Navigasi -->
+            <button id="flash-sale-prev" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+                <span>&#10094;</span>
+            </button>
+            <button id="flash-sale-next" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+                <span>&#10095;</span>
+            </button>
         </div>
     </div>
 
-    @if (session('loginstatus'))
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-            Swal.fire({
-                title: 'Success!',
-                text: '{{ session('loginstatus') }}',
-                icon: 'success',
-                confirmButtonText: 'OK'
+    <!-- Script untuk Carousel -->
+    <script>
+        const wrapper = document.getElementById('carousel-wrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let currentIndex = 0;
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + wrapper.children.length) % wrapper.children.length;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % wrapper.children.length;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const width = wrapper.children[0].offsetWidth;
+            wrapper.style.transform = `translateX(-${currentIndex * width}px)`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const flashSaleWrapper = document.getElementById('flash-sale-wrapper');
+            const flashSalePrev = document.getElementById('flash-sale-prev');
+            const flashSaleNext = document.getElementById('flash-sale-next');
+            let flashSaleIndex = 0;
+
+            // Fungsi untuk memperbarui carousel dan status tombol
+            function updateFlashSaleCarousel() {
+                const width = flashSaleWrapper.children[0].offsetWidth + 20; // Width + gap
+                flashSaleWrapper.style.transform = `translateX(-${flashSaleIndex * width}px)`;
+
+                // Update status tombol
+                flashSalePrev.disabled = flashSaleIndex === 0;
+                flashSaleNext.disabled = flashSaleIndex === flashSaleWrapper.children.length - Math.floor(flashSaleWrapper.parentElement.offsetWidth / width);
+                
+                // Styling tombol disabled
+                flashSalePrev.classList.toggle('opacity-50', flashSalePrev.disabled);
+                flashSaleNext.classList.toggle('opacity-50', flashSaleNext.disabled);
+            }
+
+            flashSalePrev.addEventListener('click', () => {
+                if (flashSaleIndex > 0) {
+                    flashSaleIndex--;
+                    updateFlashSaleCarousel();
+                }
             });
-        </script>
-    @endif
+
+            flashSaleNext.addEventListener('click', () => {
+                const maxIndex = flashSaleWrapper.children.length - Math.floor(flashSaleWrapper.parentElement.offsetWidth / (flashSaleWrapper.children[0].offsetWidth + 18));
+                if (flashSaleIndex < maxIndex) {
+                    flashSaleIndex++;
+                    updateFlashSaleCarousel();
+                }
+            });
+
+            // Inisialisasi
+            updateFlashSaleCarousel();
+        });
+    </script>
 </x-app-layout>

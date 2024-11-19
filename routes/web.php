@@ -7,8 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController; 
-use App\Http\Controllers\OrderController; 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 use Illuminate\Support\Facades\Route;
@@ -19,15 +19,15 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/user', [UserController::class, 'index'])->name('dashboard.user');
-    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin'); 
+    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
 });
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
     if ($user->role === 'admin') {
-        return redirect()->route('dashboard.admin'); 
+        return redirect()->route('dashboard.admin');
     } elseif ($user->role === 'user') {
-        return redirect()->route('dashboard.user');  
+        return redirect()->route('dashboard.user');
     }
 
     abort(403, 'Unauthorized access');
