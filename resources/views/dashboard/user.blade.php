@@ -67,7 +67,7 @@
                 <div>
                     <h2 class="text-2xl font-bold text-amber-800">Flash Sale</h2>
                     <p class="text-gray-600">Berakhir dalam 
-                        <span class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:05:53</span>
+                        <span id="countdown" class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:00:00</span>
                     </p>
                 </div>
                 <a href="#" class="text-amber-600 font-medium hover:underline">Lihat Semua</a>
@@ -89,7 +89,7 @@
                     <!-- Produk Flash Sale -->
                     @foreach ($flashSaleProducts as $product)
                         <div class="flex-none w-52 bg-white rounded-lg shadow p-4">
-                            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="h-32 w-full object-cover rounded-md">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="h-32 w-full object-cover rounded-md">
                             <div class="mt-2">
                                 <h4 class="text-sm font-semibold truncate">{{ $product->name }}</h4>
                                 <p class="text-lg font-bold text-red-600 mt-1">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
@@ -117,8 +117,33 @@
         </div>
     </div>
 
-    <!-- Script untuk Carousel -->
+    <!-- Script untuk Countdown dan Carousel -->
     <script>
+        // Flash Sale Countdown
+        const endTime = new Date().getTime() + (1 * 60 * 60 * 1000); // 1 jam dari sekarang
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Perbarui countdown
+            document.getElementById("countdown").innerHTML = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        // Carousel Logic
         const wrapper = document.getElementById('carousel-wrapper');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -145,16 +170,13 @@
             const flashSaleNext = document.getElementById('flash-sale-next');
             let flashSaleIndex = 0;
 
-            // Fungsi untuk memperbarui carousel dan status tombol
             function updateFlashSaleCarousel() {
-                const width = flashSaleWrapper.children[0].offsetWidth + 20; // Width + gap
+                const width = flashSaleWrapper.children[0].offsetWidth + 20;
                 flashSaleWrapper.style.transform = `translateX(-${flashSaleIndex * width}px)`;
 
-                // Update status tombol
                 flashSalePrev.disabled = flashSaleIndex === 0;
                 flashSaleNext.disabled = flashSaleIndex === flashSaleWrapper.children.length - Math.floor(flashSaleWrapper.parentElement.offsetWidth / width);
                 
-                // Styling tombol disabled
                 flashSalePrev.classList.toggle('opacity-50', flashSalePrev.disabled);
                 flashSaleNext.classList.toggle('opacity-50', flashSaleNext.disabled);
             }
@@ -174,7 +196,6 @@
                 }
             });
 
-            // Inisialisasi
             updateFlashSaleCarousel();
         });
     </script>

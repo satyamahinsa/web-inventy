@@ -22,13 +22,13 @@
         </form>
 
         <div class="flex flex-wrap gap-4 mb-6 border-b-2 pb-4">
-            <a href="{{ route('products.index') }}" 
-               class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
+            <a href="{{ route('products.index') }}"
+                class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
                 Semua Kategori ({{ $totalProducts }})
             </a>
             @foreach ($categories as $category)
-                <a href="{{ route('products.index', ['category' => $category->id]) }}" 
-                   class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
+                <a href="{{ route('products.index', ['category' => $category->id]) }}"
+                    class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
                     {{ $category->name }} ({{ $category->products_count }})
                 </a>
             @endforeach
@@ -45,33 +45,37 @@
                 <p>Maaf, tidak ada produk yang tersedia untuk kategori dan pencarian yang Anda pilih.</p>
             </div>
         @else
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            @foreach ($products as $product)
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="w-full h-60 object-cover rounded mb-10">
-                    <h2 class="text-lg font-semibold">{{ $product->name }}</h2>
-                    <p class="text-gray-700">{{ $product->description }}</p>
-                    <p class="text-gray-900 font-bold">Harga: Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-                    <p class="text-gray-600">Stok: {{ $product->stock }}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                @foreach ($products as $product)
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                        class="w-full h-60 object-cover rounded mb-10">
                     
-                    <form action="{{ route('products.addToCart', $product->id) }}" method="POST" class="add-to-cart-form">
-                        @csrf
-                        <div class="flex items-center mt-4">
-                            <input type="number" name="quantity" min="1" max="{{ $product->stock }}"
-                                value="1" class="border rounded p-2 w-16">
-                            <button type="submit" class="ml-2 bg-blue-500 text-white py-2 px-4 rounded flex items-center add-to-cart">
-                                <i class="fas fa-shopping-cart mr-2"></i>
-                                Tambah
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            @endforeach
-        </div>
+                        <h2 class="text-lg font-semibold">{{ $product->name }}</h2>
+                        <p class="text-gray-700">{{ $product->description }}</p>
+                        <p class="text-gray-900 font-bold">Harga: Rp{{ number_format($product->price, 0, ',', '.') }}
+                        </p>
+                        <p class="text-gray-600">Stok: {{ $product->stock }}</p>
+
+                        <form action="{{ route('products.addToCart', $product->id) }}" method="POST"
+                            class="add-to-cart-form">
+                            @csrf
+                            <div class="flex items-center mt-4">
+                                <input type="number" name="quantity" min="1" max="{{ $product->stock }}"
+                                    value="1" class="border rounded p-2 w-16">
+                                <button type="submit"
+                                    class="ml-2 bg-blue-500 text-white py-2 px-4 rounded flex items-center add-to-cart">
+                                    <i class="fas fa-shopping-cart mr-2"></i>
+                                    Tambah
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
         @endif
     </div>
-    
+
     <div class="cart fixed bottom-4 right-4 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
         <a href="{{ route('cart.index') }}" class="text-white flex items-center justify-center w-full h-full relative">
             <i class="fas fa-shopping-cart"></i>

@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
 });
 
+
 Route::get('/dashboard', function () {
     $user = auth()->user();
     if ($user->role === 'admin') {
@@ -73,6 +74,7 @@ Route::resource('products', ProductController::class);
 Route::post('/products/{product}/add-to-cart', [ProductController::class, 'addToCart'])->name('products.addToCart');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 // Route cart Keranjang
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
