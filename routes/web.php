@@ -7,8 +7,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController; 
-use App\Http\Controllers\OrderController; 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 use Illuminate\Support\Facades\Route;
@@ -19,15 +19,16 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/user', [UserController::class, 'index'])->name('dashboard.user');
-    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin'); 
+    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
 });
+
 
 Route::get('/dashboard', function () {
     $user = auth()->user();
     if ($user->role === 'admin') {
-        return redirect()->route('dashboard.admin'); 
+        return redirect()->route('dashboard.admin');
     } elseif ($user->role === 'user') {
-        return redirect()->route('dashboard.user');  
+        return redirect()->route('dashboard.user');
     }
 
     abort(403, 'Unauthorized access');
@@ -73,6 +74,7 @@ Route::resource('products', ProductController::class);
 Route::post('/products/{product}/add-to-cart', [ProductController::class, 'addToCart'])->name('products.addToCart');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 // Route cart Keranjang
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

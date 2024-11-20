@@ -22,10 +22,21 @@
                 <i class="fas fa-home text-lg"></i>
                 <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Dashboard</span>
             </a>
-            <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
-                <i class="fas fa-box text-lg"></i>
-                <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Product</span>
-            </a>
+            <!-- Menampilkan link produk untuk user biasa -->
+            @if(auth()->user() && auth()->user()->role === 'user')
+                <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
+                    <i class="fas fa-box text-lg"></i>
+                    <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Produk</span>
+                </a>
+            @endif
+
+            <!-- Menampilkan link produk hanya untuk admin -->
+            @if(auth()->user() && auth()->user()->role === 'admin')
+                <a href="{{ route('products.create') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
+                    <i class="fas fa-box text-lg"></i>
+                    <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Tambah Produk</span>
+                </a>
+            @endif
             <a href="{{ route('transactions.index-admin') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
                 <i class="fas fa-exchange-alt text-lg"></i>
                 <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Transactions</span>

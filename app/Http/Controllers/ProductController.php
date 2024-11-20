@@ -78,9 +78,11 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
-
-        return view('products.create', compact('categories'));
+        $products = Product::all(); // Ambil semua produk dari database
+    
+        return view('products.create', compact('categories', 'products'));
     }
+    
 
     public function store(Request $request)
     {
@@ -107,7 +109,7 @@ class ProductController extends Controller
             'image' => $path, 
         ]);
     
-        return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+        return redirect()->route('products.create')->with('success', 'Produk berhasil ditambahkan!');
     }
 
     public function show(Product $product)
@@ -123,26 +125,44 @@ class ProductController extends Controller
         return view('products.edit', compact('product', 'categories'));
     }
 
-    public function update(Request $request, Product $product)
-    {
-        // Validasi input saat update
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'stock' => 'required|integer|min:0',
+        'category_id' => 'required|exists:categories,id',
+        'image' => 'nullable|image|max:2048', // Validasi gambar opsional
+    ]);
 
-        $product->update($request->all());
+    $product = Product::findOrFail($id);
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diperbarui.');
+    // Perbarui data produk
+    $product->name = $request->name;
+    $product->description = $request->description;
+    $product->price = $request->price;
+    $product->stock = $request->stock;
+    $product->category_id = $request->category_id;
+
+    // Periksa jika ada gambar yang diunggah
+    if ($request->hasFile('image')) {
+        // Hapus gambar lama jika ada
+        if ($product->image) {
+            Storage::delete('public/' . $product->image);
+        }
+        // Simpan gambar baru
+        $product->image = $request->file('image')->store('products', 'public');
     }
 
+    $product->save();
+
+    return redirect()->route('products.create')->with('success', 'Produk berhasil diperbarui!');
+}
     public function destroy(Product $product)
     {
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('products.create')->with('success', 'Produk berhasil dihapus.');
     }
 }
