@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Inventy') }}</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('styleProduct/styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style type="text/tailwindcss">
+        #toggleMode:checked ~ label div.toggleCircle {
+            @apply translate-x-3;
+        }
+    </style>
 </head>
 <body class="font-sans antialiase">
-    <div class="min-h-screen bg-gray-100 flex">
+    <div class="min-h-screen bg-amber-50 dark:bg-gray-800 flex">
         <!-- Sidebar -->
         @include('layouts.sidebar')
 
         <!-- Konten Utama -->
         <div id="mainContent" class="flex-1 transition-all duration-300 pl-64">
             @isset($header)
-                <header class="bg-amber-500 dark:bg-amber-800 shadow">
+                <header class="bg-amber-200 dark:bg-amber-500 shadow">
                     <div class="max-w-7xl mx-auto py-3 px-4 sm:px-3 lg:px-8 flex items-center justify-between">
                         {{ $header }}
                     </div>
@@ -35,6 +39,41 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const html = document.querySelector('html');
+            const checkbox = document.querySelector('#toggleMode');
+
+            // Fungsi untuk mengatur tema
+            function setTheme(theme) {
+                if (theme === 'dark') {
+                    html.classList.add('dark');
+                    html.classList.remove('light');
+                } else {
+                    html.classList.add('light');
+                    html.classList.remove('dark');
+                }
+            }
+
+            // Event listener toggle
+            checkbox.addEventListener('change', function () {
+                const theme = checkbox.checked ? 'dark' : 'light';
+                setTheme(theme);
+                localStorage.setItem('theme', theme);
+            });
+
+            // Deteksi preferensi awal
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setTheme(savedTheme);
+                checkbox.checked = savedTheme === 'dark';
+            } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                setTheme('dark');
+                checkbox.checked = true;
+            } else {
+                setTheme('light');
+            }
+        });
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');

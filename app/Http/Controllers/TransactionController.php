@@ -123,19 +123,4 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
         return view('transactions.invoice', compact('transaction'));
     }
-
-    public function adminDashboard()
-    {
-        $totalSales = Transaction::sum('total_price');
-        $totalTransactions = Transaction::count();
-        $totalCustomers = User::count();
-        $averageOrderValue = $totalTransactions > 0 ? $totalSales / $totalTransactions : 0;
-        return view('admindashboard', [
-            'totalSales' => $totalSales,
-            'totalTransactions' => $totalTransactions,
-            'totalCustomers' => $totalCustomers,
-            'averageOrderValue' => $averageOrderValue,
-        ]);
-    }
-
 }

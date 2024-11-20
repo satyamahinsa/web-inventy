@@ -60,9 +60,9 @@
                             {{ $transaction->shipping_service }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            <a href="{{ route('transactions.detail', $transaction->id) }}" class="bg-blue-500 text-white py-1 px-2 rounded text-xs">Detail</a>
-                            <a href="{{ route('transactions.edit', $transaction->id) }}" class="bg-yellow-500 text-white py-1 px-2 rounded text-xs">Edit</a>
-                            <button class="bg-red-500 text-white py-1 px-2 rounded text-xs" type="button" onclick="openModal('{{ $transaction->id }}')">Delete</button>
+                            <a href="{{ route('transactions.detail', $transaction->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-xs">Detail</a>
+                            <a href="{{ route('transactions.edit', $transaction->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded text-xs">Edit</a>
+                            <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-xs" type="button" onclick="openModal('{{ $transaction->id }}')">Delete</button>
                         </td>
                     </tr>
                     @endforeach
