@@ -41,10 +41,12 @@
                 <i class="fas fa-exchange-alt text-lg"></i>
                 <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Transactions</span>
             </a>
+            @if(auth()->user() && auth()->user()->role === 'admin')
             <a href="{{ route('digital-report.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800">
                 <i class="fas fa-chart-line text-lg"></i>
                 <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Report</span>
             </a>
+            @endif
         </nav>
     </div>
 
