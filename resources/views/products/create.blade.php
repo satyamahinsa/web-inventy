@@ -66,8 +66,7 @@
                             <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $product->name }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $product->description }}</td>
-                            <td class="border border-gray-300 px-4 py-2">
-                                Rp{{ number_format($product->price, 0, ',', '.') }}</td>
+                            <td class="border border-gray-300 px-4 py-2">Rp{{ number_format($product->price, 0, ',', '.') }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $product->stock }}</td>
                             <td class="border border-gray-300 px-4 py-2">{{ $product->category->name }}</td>
                             <td class="border border-gray-300 px-4 py-2">
@@ -101,6 +100,11 @@
                     @endforeach
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <div class="mt-4">
+                {{ $products->links() }} <!-- Menampilkan link untuk pagination -->
+            </div>
         </div>
     </div>
 

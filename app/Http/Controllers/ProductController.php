@@ -77,11 +77,12 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = Category::all();
-        $products = Product::all(); // Ambil semua produk dari database
-    
+        $products = Product::paginate(10); // Menampilkan 10 produk per halaman
+        $categories = Category::all(); // Ambil semua kategori produk
+        
         return view('products.create', compact('categories', 'products'));
     }
+    
     
 
     public function store(Request $request)

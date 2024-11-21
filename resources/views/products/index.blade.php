@@ -16,19 +16,16 @@
 
     <div class="container mx-auto my-5 px-4">
         <form action="{{ route('products.index') }}" method="GET" class="flex items-center mb-4" id="searchForm">
-            <input type="text" name="search" placeholder="Cari produk..." class="border rounded p-2"
-                value="{{ request('search') }}">
+            <input type="text" name="search" placeholder="Cari produk..." class="border rounded p-2" value="{{ request('search') }}">
             <button type="submit" class="ml-2 bg-blue-500 text-white rounded p-2">Cari</button>
         </form>
 
         <div class="flex flex-wrap gap-4 mb-6 border-b-2 pb-4">
-            <a href="{{ route('products.index') }}"
-                class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
+            <a href="{{ route('products.index') }}" class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
                 Semua Kategori ({{ $totalProducts }})
             </a>
             @foreach ($categories as $category)
-                <a href="{{ route('products.index', ['category' => $category->id]) }}"
-                    class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
+                <a href="{{ route('products.index', ['category' => $category->id]) }}" class="border border-gray-400 rounded p-2 bg-white hover:bg-blue-500 hover:text-white">
                     {{ $category->name }} ({{ $category->products_count }})
                 </a>
             @endforeach
@@ -47,35 +44,49 @@
         @else
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($products as $product)
-                    <div class="bg-white p-6 rounded-lg shadow-lg">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                        class="w-full h-60 object-cover rounded mb-10">
-                    
-                        <h2 class="text-lg font-semibold">{{ $product->name }}</h2>
-                        <p class="text-gray-700">{{ $product->description }}</p>
-                        <p class="text-gray-900 font-bold">Harga: Rp{{ number_format($product->price, 0, ',', '.') }}
-                        </p>
-                        <p class="text-gray-600">Stok: {{ $product->stock }}</p>
+                    <div class="product-card bg-white p-6 rounded-lg shadow-lg cursor-pointer" data-product-id="{{ $product->id }}">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-60 object-cover rounded mb-4">
+                        <h2 class="text-lg font-semibold text-center uppercase">{{ $product->name }}</h2> <!-- Center and Uppercase -->
+                    </div>
 
-                        <form action="{{ route('products.addToCart', $product->id) }}" method="POST"
-                            class="add-to-cart-form">
-                            @csrf
-                            <div class="flex items-center mt-4">
-                                <input type="number" name="quantity" min="1" max="{{ $product->stock }}"
-                                    value="1" class="border rounded p-2 w-16">
-                                <button type="submit"
-                                    class="ml-2 bg-blue-500 text-white py-2 px-4 rounded flex items-center add-to-cart">
-                                    <i class="fas fa-shopping-cart mr-2"></i>
-                                    Tambah
-                                </button>
+                    <!-- Pop-up Modal -->
+                    <div id="product-modal-{{ $product->id }}" class="product-modal fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+                        <div class="bg-white p-6 rounded-lg w-full max-w-2xl relative flex">
+                            <div class="w-1/3">
+                                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover rounded">
                             </div>
-                        </form>
+
+                            <div class="w-2/3 pl-6 max-h-[500px] overflow-y-auto">
+                                <button class="absolute top-2 right-2 text-gray-500 text-2xl" id="close-modal-{{ $product->id }}">×</button>
+                                <h2 class="text-lg font-semibold mb-2">{{ $product->name }}</h2>
+                                <p class="text-gray-700">{{ $product->description }}</p>
+                                <p class="text-gray-900 font-bold mt-2">Harga: Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                <p class="text-gray-600">Stok: {{ $product->stock }}</p>
+
+                                <form action="{{ route('products.addToCart', $product->id) }}" method="POST" class="add-to-cart-form mt-4">
+                                    @csrf
+                                    <div class="flex items-center mt-4">
+                                        <input type="number" name="quantity" min="1" max="{{ $product->stock }}" value="1" class="border rounded p-2 w-16">
+                                        <button type="submit" class="ml-2 bg-blue-500 text-white py-2 px-4 rounded flex items-center">
+                                            <i class="fas fa-shopping-cart mr-2"></i>
+                                            Tambah
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 @endforeach
+            </div>
+
+            <!-- Pagination Controls -->
+            <div class="flex justify-center mt-10">
+                {{ $products->appends(request()->query())->links() }}
             </div>
         @endif
     </div>
 
+    <!-- Cart Icon -->
     <div class="cart fixed bottom-4 right-4 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
         <a href="{{ route('cart.index') }}" class="text-white flex items-center justify-center w-full h-full relative">
             <i class="fas fa-shopping-cart"></i>
@@ -83,16 +94,33 @@
         </a>
     </div>
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
+            // Handle card click to show modal with product details
+            $('.product-card').on('click', function() {
+                var productId = $(this).data('product-id');
+                var modal = $('#product-modal-' + productId);
+    
+                // Show the modal
+                modal.removeClass('hidden').addClass('flex');
+            });
+    
+            // Handle closing the modal
+            $('.product-modal button').on('click', function() {
+                var modal = $(this).closest('.product-modal');
+                modal.addClass('hidden').removeClass('flex');
+            });
+    
+            // Handle form submit (Add to Cart)
             $('.add-to-cart-form').on('submit', function(event) {
                 event.preventDefault();
                 const form = $(this);
                 const quantity = form.find('input[name="quantity"]').val();
                 const actionUrl = form.attr('action');
-
+    
                 $.ajax({
                     url: actionUrl,
                     method: 'POST',
@@ -105,12 +133,14 @@
                             icon: 'success',
                             title: 'Produk Ditambahkan',
                             text: 'Produk telah berhasil ditambahkan ke keranjang!',
-                            showConfirmButton: true,
+                            showConfirmButton: true,  
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                Swal.close();
+                                Swal.close();  
                             }
                         });
+    
+                        // Update cart count
                         const currentCount = parseInt($('#cart-count').text()) || 0;
                         $('#cart-count').text(currentCount + parseInt(quantity));
                     },
@@ -124,5 +154,5 @@
                 });
             });
         });
-    </script>
+    </script>    
 </x-app-layout>
