@@ -152,7 +152,7 @@
 
 
 <!-- Testimoni Pelanggan Section -->
-<section class="bg-gradient-to-r from-yellow-300 to-gray-300 py-16">
+<section class="bg-gradient-to-r from-yellow-300 to-gray-400 py-16">
     <div class="container mx-auto text-center">
         <h2 class="text-3xl font-bold mb-8">TESTIMONI PELANGGAN</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -177,7 +177,7 @@
 
 
 <!-- Footer Section -->
-<footer class="bg-gradient-to-r from-yellow-300 to-gray-300 py-10">
+<footer class="bg-gradient-to-r from-yellow-300 to-gray-400 py-10">
     <!-- Horizontal Line -->
     <div class="w-full border-t border-gray-400 mb-8"></div>
 
