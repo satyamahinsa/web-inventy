@@ -87,10 +87,15 @@ Route::get('/cart/payment', [CartController::class, 'showPaymentPage'])->name('c
 Route::get('/cart/payment/success', [PaymentController::class, 'success'])->name('cart.payment.success');
 Route::get('/cart/payment/failed', [PaymentController::class, 'failed'])->name('cart.payment.failed');
 
-//Midtrans Payment
-Route::post('processPayment', [OrderController::class, 'processPayment']);
-Route::get('/cart/payment', [OrderController::class, 'index']);
+// //Midtrans Payment
+// Route::post('processPayment', [OrderController::class, 'processPayment']);
+// Route::get('/cart/payment', [OrderController::class, 'index']);
+// Route::get('/cart/payment', [OrderController::class, 'showPaymentPage'])->name('cart.payment');
+
 Route::get('/cart/payment', [OrderController::class, 'showPaymentPage'])->name('cart.payment');
+Route::post('/cart/payment/process', [OrderController::class, 'processPayment'])->name('order.processPayment');
+Route::get('/cart/payment/success/{order}', [OrderController::class, 'success'])->name('order.success');
+
 
 
 require __DIR__ . '/auth.php';

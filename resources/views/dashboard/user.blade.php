@@ -29,7 +29,8 @@
                     <div>
                         <h4 class="text-purple-700 font-medium text-lg">Official Store</h4>
                         <h2 class="text-black font-extrabold text-3xl">Pasti Promo Pasti Ori</h2>
-                        <a href="#" class="text-purple-900 font-semibold mt-2 inline-block">Lihat Promo Lainnya</a>
+                        <a href="#" class="text-purple-900 font-semibold mt-2 inline-block">Lihat Promo
+                            Lainnya</a>
                     </div>
                     <img src="path/to/image1.png" alt="Promo Image" class="h-32 object-contain">
                 </div>
@@ -52,12 +53,14 @@
                     <img src="path/to/image3.png" alt="Promo Image" class="h-32 object-contain">
                 </div>
             </div>
-        
+
             <!-- Navigasi -->
-            <button id="prevBtn" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+            <button id="prevBtn"
+                class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
                 <span>&#10094;</span>
             </button>
-            <button id="nextBtn" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+            <button id="nextBtn"
+                class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
                 <span>&#10095;</span>
             </button>
         </div>
@@ -66,18 +69,20 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-2xl font-bold text-amber-800">Flash Sale</h2>
-                    <p class="text-gray-600">Berakhir dalam 
-                        <span id="countdown" class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:00:00</span>
+                    <p class="text-gray-600">Berakhir dalam
+                        <span id="countdown"
+                            class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:00:00</span>
                     </p>
                 </div>
                 <a href="#" class="text-amber-600 font-medium hover:underline">Lihat Semua</a>
             </div>
-        
+
             <!-- Wrapper untuk Carousel Flash Sale -->
             <div class="mt-4 overflow-hidden relative">
                 <div id="flash-sale-wrapper" class="flex gap-4 transition-transform duration-500 ease-in-out">
                     <!-- Kartu Promo -->
-                    <div class="flex-none w-48 bg-amber-300 rounded-lg p-4 flex flex-col items-center justify-center shadow">
+                    <div
+                        class="flex-none w-48 bg-amber-300 rounded-lg p-4 flex flex-col items-center justify-center shadow">
                         <h4 class="text-amber-700 font-bold text-lg">FLASH SALE</h4>
                         <p class="text-amber-900 text-center text-2xl font-extrabold mt-2">Serba Diskon</p>
                         <button class="bg-green-500 text-white font-medium px-4 py-2 rounded mt-4 hover:bg-green-600">
@@ -85,37 +90,56 @@
                         </button>
                         <p class="text-xs text-gray-700 mt-2">*S&K Berlaku</p>
                     </div>
-        
+
                     <!-- Produk Flash Sale -->
                     @foreach ($flashSaleProducts as $product)
-                        <div class="flex-none w-52 bg-white rounded-lg shadow p-4">
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="h-32 w-full object-cover rounded-md">
+                        <div class="flex-none w-52 bg-white rounded-lg shadow p-4 ">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                class="h-32 w-full object-cover rounded-md">
                             <div class="mt-2">
                                 <h4 class="text-sm font-semibold truncate">{{ $product->name }}</h4>
-                                <p class="text-lg font-bold text-red-600 mt-1">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                <p class="text-lg font-bold text-red-600 mt-1">
+                                    Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                                 <p class="text-sm text-gray-500 line-through">
                                     Rp{{ number_format($product->original_price, 0, ',', '.') }}
                                 </p>
                                 <p class="text-sm text-red-500 font-semibold">{{ $product->discount }}% OFF</p>
                                 <p class="text-xs text-gray-600 mt-2">Segera Habis</p>
                                 <div class="bg-gray-200 h-2 w-full rounded-full mt-1">
-                                    <div class="bg-red-500 h-2 rounded-full" style="width: {{ $product->stock_percentage }}%;"></div>
+                                    <div class="bg-red-500 h-2 rounded-full"
+                                        style="width: {{ $product->stock_percentage }}%;"></div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
-        
+
             <!-- Navigasi -->
-            <button id="flash-sale-prev" class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+            <button id="flash-sale-prev"
+                class="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
                 <span>&#10094;</span>
             </button>
-            <button id="flash-sale-next" class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
+            <button id="flash-sale-next"
+                class="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white w-10 h-10 rounded-full shadow-md flex items-center justify-center hover:bg-gray-200">
                 <span>&#10095;</span>
             </button>
         </div>
     </div>
+
+    @if (session('loginstatus'))
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    title: 'Success!',
+                    text: '{{ session('loginstatus') }}',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            });
+        </script>
+    @endif
 
     <!-- Script untuk Countdown dan Carousel -->
     <script>
@@ -137,7 +161,7 @@
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             // Perbarui countdown
-            document.getElementById("countdown").innerHTML = 
+            document.getElementById("countdown").innerHTML =
                 `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
 
@@ -175,8 +199,9 @@
                 flashSaleWrapper.style.transform = `translateX(-${flashSaleIndex * width}px)`;
 
                 flashSalePrev.disabled = flashSaleIndex === 0;
-                flashSaleNext.disabled = flashSaleIndex === flashSaleWrapper.children.length - Math.floor(flashSaleWrapper.parentElement.offsetWidth / width);
-                
+                flashSaleNext.disabled = flashSaleIndex === flashSaleWrapper.children.length - Math.floor(
+                    flashSaleWrapper.parentElement.offsetWidth / width);
+
                 flashSalePrev.classList.toggle('opacity-50', flashSalePrev.disabled);
                 flashSaleNext.classList.toggle('opacity-50', flashSaleNext.disabled);
             }
@@ -189,7 +214,8 @@
             });
 
             flashSaleNext.addEventListener('click', () => {
-                const maxIndex = flashSaleWrapper.children.length - Math.floor(flashSaleWrapper.parentElement.offsetWidth / (flashSaleWrapper.children[0].offsetWidth + 18));
+                const maxIndex = flashSaleWrapper.children.length - Math.floor(flashSaleWrapper
+                    .parentElement.offsetWidth / (flashSaleWrapper.children[0].offsetWidth + 18));
                 if (flashSaleIndex < maxIndex) {
                     flashSaleIndex++;
                     updateFlashSaleCarousel();

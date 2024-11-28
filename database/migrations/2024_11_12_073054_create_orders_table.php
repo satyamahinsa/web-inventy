@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('address');
-            $table->string('phone');
-            $table->integer('qty');
-            $table->bigInteger('total');
-            $table->enum('status',['Unpaid','Paid']);
-            $table->timestamps();
-        });
+    Schema::create('orders', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->string('email');
+        $table->string('phone');
+        $table->text('address');
+        $table->decimal('total_amount', 10, 2);
+        $table->string('payment_method'); 
+        $table->enum('status', ['pending', 'completed', 'failed'])->default('pending');
+        $table->timestamps();
+    });
+
     }
 
     /**
