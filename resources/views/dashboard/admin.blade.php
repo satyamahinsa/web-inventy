@@ -122,7 +122,20 @@
         </div>
     </div>
 
-        
+    @if (session('loginstatus'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ session('loginstatus') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        });
+    </script>
+@endif
+
     {{-- Include Charts JS --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

@@ -5,80 +5,53 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
-use Midtrans\Snap;
-use Midtrans\Config;
 
 class OrderController extends Controller
 {
-    public function index()
-    {
-        return view('cart.payment');
+    public function showPaymentPage()
+{
+    $cart = session()->get('cart', []);
+    $grandTotal = 0;
+    foreach ($cart as $item) {
+        $grandTotal += $item['price'] * $item['quantity'];
     }
+
+    return view('cart.payment', [
+        'cart' => $cart,
+        'grandTotal' => $grandTotal
+    ]);
+}
 
     public function processPayment(Request $request)
     {
-        $cart = session('cart');
-        $total = 0;
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string',
+            'payment_method' => 'required|string',
+            'amount' => 'required|numeric|min:0'
+        ]);
 
-        foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
-        }
-
+        $totalAmount = $request->input('amount');
+        
         $order = Order::create([
             'user_id' => Auth::id(),
-            'total_amount' => $total,
-            'status' => 'pending', 
-            'name' => $request->input('name'),      
-            'email' => $request->input('email'),    
-            'phone' => $request->input('phone'),    
-            'address' => $request->input('address') 
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'address' => $request->input('address'),
+            'total_amount' => $totalAmount,
+            'payment_method' => $request->input('payment_method'),
+            'status' => 'pending'
         ]);
 
-        // Menyiapkan detail transaksi
-        $transactionDetails = [
-            'order_id' => $order->id, 
-            'gross_amount' => $total,
-        ];
-
-        // Menyiapkan detail pelanggan
-        $customerDetails = [
-            'first_name' => Auth::user()->name,
-            'email' => Auth::user()->email,
-            'phone' => $request->phone,
-            'address' => $request->address,
-        ];
-
-        // Menyiapkan data transaksi untuk Midtrans
-        $params = [
-            'transaction_details' => $transactionDetails,
-            'customer_details' => $customerDetails,
-        ];
-
-        // Set konfigurasi Midtrans
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = false;  
-        \Midtrans\Config::$isSanitized = true;
-        \Midtrans\Config::$is3ds = true;
-
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-        return view('cart.payment', compact('snapToken', 'cart', 'total'));
+        return redirect()->route('order.success', ['order' => $order->id])
+        ->with('success', 'Pembayaran berhasil dilakukan.');
     }
 
-    public function showPaymentPage()
+    public function success(Order $order)
     {
-        $cart = session()->get('cart', []);
-
-        // Hitung total keseluruhan
-        $grandTotal = 0;
-        foreach ($cart as $item) {
-            $grandTotal += $item['price'] * $item['quantity'];
-        }
-        
-        return view('cart.payment', [
-            'cart' => $cart,
-            'grandTotal' => $grandTotal
-        ]);
-}
-
+        return view('cart.payment_success', compact('order'));
+    }
 }
