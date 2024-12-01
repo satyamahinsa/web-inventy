@@ -1,16 +1,25 @@
 <x-app-layout>
-    <!-- Slot Header -->
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
-            {{ __('Digital Report') }}
+        <h2 class="font-semibold text-xl text-white leading-tight">
+            {{ __('Laporan Penjualan') }}
         </h2>
         <div class="flex items-center">
+            <div class="mr-6 flex items-center gap-2">
+                <i class="fas fa-sun text-yellow-400 text-lg"></i>
+                <input type="checkbox" id="toggleMode" class="hidden">
+                <label for="toggleMode">
+                    <div class="flex items-center w-9 h-5 bg-slate-500 rounded-full p-1 cursor-pointer">
+                        <div class="w-4 h-4 bg-white rounded-full toggleCircle"></div>
+                    </div>
+                </label>
+                <i class="fas fa-moon text-white text-lg"></i>
+            </div>
             <button class="mr-6">
-                <i class="fas fa-bell text-gray-500"></i>
+                <i class="fas fa-bell text-white"></i>
             </button>
             <div class="flex items-center space-x-3">
                 <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-                <span class="text-gray-900 font-medium dark:text-white">{{ Auth::user()->name }}</span>
+                <span class="text-white font-medium">{{ Auth::user()->name }}</span>
             </div>
         </div>
     </x-slot>
@@ -18,7 +27,7 @@
     <!-- Main Content -->
     <div class="container mx-auto my-5 px-4">
         <!-- Sales Report Section -->
-        <div class="mb-12 bg-amber-300 p-6 rounded-lg shadow-md">
+        <div class="mb-5 bg-amber-200 p-6 rounded-lg shadow-md">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold mb-4">Laporan Transaksi</h2>
                 <a href="{{ route('digital-report.detail-transaction-report') }}" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
@@ -71,7 +80,7 @@
         </div>
 
         <!-- Products Report Section -->
-        <div class="mb-12 bg-amber-300 p-6 rounded-lg shadow-md">
+        <div class="mb-5 bg-amber-200 p-6 rounded-lg shadow-md">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold mb-4">Laporan Produk</h2>
                 <a href="{{ route('digital-report.detail-product-report') }}" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
@@ -104,7 +113,7 @@
         </div>
 
         <!-- Customers Report Section -->
-        <div class="mb-12 bg-amber-300 p-6 rounded-lg shadow-md">
+        <div class="mb-5 bg-amber-200 p-6 rounded-lg shadow-md">
             <div class="flex justify-between items-center">
                 <h2 class="text-2xl font-bold mb-4">Laporan Pelanggan</h2>
                 <a href="{{ route('digital-report.detail-user-report') }}" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">

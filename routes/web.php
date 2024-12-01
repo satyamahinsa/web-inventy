@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index-admin');
+Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
 
 Route::get('/transactions/history', [TransactionController::class, 'history'])->name('transactions.history');
 
@@ -75,6 +75,8 @@ Route::post('/products/{product}/add-to-cart', [ProductController::class, 'addTo
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::get('/digital-report/detail-product-report', [ProductController::class, 'sort'])->name('digital-report.detail-product-report');
+Route::get('/digital-report/detail-product-report', [ProductController::class, 'category'])->name('digital-report.detail-product-report');
 
 // Route cart Keranjang
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

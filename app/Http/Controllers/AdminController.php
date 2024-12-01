@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         // KPI Metrics
-        $totalSales = Transaction::sum('total_price');
+        $totalSales = Transaction::sum('total_amount');
         $totalTransactions = Transaction::count();
         $totalCustomers = User::where('role', 'user')->count();
         $averageOrderValue = $totalTransactions > 0 ? $totalSales / $totalTransactions : 0;

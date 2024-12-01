@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<div id="sidebar" class="bg-amber-500 dark:bg-amber-200 text-white dark:text-gray-800 fixed h-screen p-4 z-10 top-0 left-0 flex flex-col justify-between transition-all duration-300 transform w-64">
+<div id="sidebar" class="bg-amber-500 text-white dark:text-gray-800 fixed h-screen p-4 z-10 top-0 left-0 flex flex-col justify-between w-64">
     <!-- Logo dan Tombol Hamburger -->
     <div class="flex flex-col">
         <div id="sidebarHeader" class="ml-3 flex items-center justify-between mb-8">
@@ -7,7 +7,7 @@
             <a href="/" class="font-bold text-2xl flex items-center space-x-2">
                 <i id="sidebarLogo" class="fas fa-wave-square"></i>
                 <!-- Text INVENTY dengan animasi fade dan slide -->
-                <span id="sidebarLogoText" class="ml-3 text-lg transition-all duration-300 transform opacity-100">INVENTY</span>
+                <span id="sidebarLogoText" class="ml-3 text-lg transform opacity-100">INVENTY</span>
             </a>
             <!-- Tombol Hamburger dan Ikon Silang -->
             <button id="toggleSidebarButton" onclick="toggleSidebar()" class="text-lg focus:outline-none">
@@ -18,33 +18,33 @@
 
         <!-- Navigation Links -->
         <nav class="space-y-4">
-            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800">
+            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                 <i class="fas fa-home text-lg"></i>
-                <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Dashboard</span>
+                <span class="menu-text ml-2 opacity-100">Dashboard</span>
             </a>
             <!-- Menampilkan link produk untuk user biasa -->
             @if(auth()->user() && auth()->user()->role === 'user')
-                <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
+                <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                     <i class="fas fa-box text-lg"></i>
-                    <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Produk</span>
+                    <span class="menu-text ml-2 opacity-100">Produk</span>
                 </a>
             @endif
 
             <!-- Menampilkan link produk hanya untuk admin -->
             @if(auth()->user() && auth()->user()->role === 'admin')
-                <a href="{{ route('products.create') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
+                <a href="{{ route('products.create') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                     <i class="fas fa-box text-lg"></i>
-                    <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Tambah Produk</span>
+                    <span class="menu-text ml-2 opacity-100">Tambah Produk</span>
                 </a>
             @endif
-            <a href="{{ route('transactions.index-admin') }}" class="group flex items-center space-x-4 text-white p-2 rounded hover:bg-amber-800">
+            <a href="{{ route('transactions.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                 <i class="fas fa-exchange-alt text-lg"></i>
-                <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Transactions</span>
+                <span class="menu-text ml-2 opacity-100">Transactions</span>
             </a>
             @if(auth()->user() && auth()->user()->role === 'admin')
-            <a href="{{ route('digital-report.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800">
+            <a href="{{ route('digital-report.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                 <i class="fas fa-chart-line text-lg"></i>
-                <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Report</span>
+                <span class="menu-text ml-2 opacity-100">Report</span>
             </a>
             @endif
         </nav>
@@ -52,21 +52,17 @@
 
     <!-- Footer dengan Tombol Lain -->
     <div class="mt-auto space-y-4">
-        <a href="#" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800">
-            <i class="fas fa-moon text-lg"></i>
-            <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Dark</span>
-        </a>
-        <a href="#" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800">
+        <a href="#" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
             <i class="fas fa-cog text-lg"></i>
-            <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">Settings</span>
+            <span class="menu-text ml-2 opacity-100">Settings</span>
         </a>
         
         <!-- Log Out Form -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 w-full focus:outline-none">
+            <button type="submit" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200 w-full focus:outline-none">
                 <i class="fas fa-sign-out-alt text-lg"></i>
-                <span class="menu-text ml-2 transition-all duration-500 transform opacity-100">LogOut</span>
+                <span class="menu-text ml-2 opacity-100">Log Out</span>
             </button>
         </form>
     </div>

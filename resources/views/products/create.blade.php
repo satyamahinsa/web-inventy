@@ -1,54 +1,73 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Kelola Produk') }}
         </h2>
+        <div class="flex items-center">
+            <div class="mr-6 flex items-center gap-2">
+                <i class="fas fa-sun text-yellow-400 text-lg"></i>
+                <input type="checkbox" id="toggleMode" class="hidden">
+                <label for="toggleMode">
+                    <div class="flex items-center w-9 h-5 bg-slate-500 rounded-full p-1 cursor-pointer">
+                        <div class="w-4 h-4 bg-white rounded-full toggleCircle"></div>
+                    </div>
+                </label>
+                <i class="fas fa-moon text-white text-lg"></i>
+            </div>
+            <button class="mr-6">
+                <i class="fas fa-bell text-white"></i>
+            </button>
+            <div class="flex items-center space-x-3">
+                <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
+                <span class="text-white font-medium">{{ Auth::user()->name }}</span>
+            </div>
+        </div>
     </x-slot>
 
     <div class="container mx-auto my-5 px-4">
 
         <!-- Form Tambah Produk -->
-        <div class="border border-gray-300 rounded-lg p-6 bg-white mb-10">
-            <h3 class="text-lg font-semibold mb-4">Tambah Produk</h3>
+        <div class="border border-gray-300 rounded-lg p-6 bg-white dark:bg-stone-600 mb-10">
+            <h3 class="text-gray-800 dark:text-white text-lg font-semibold mb-4">Tambah Produk</h3>
             <form id="add-product-form" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700">Nama Produk</label>
-                    <input type="text" name="name" id="name" class="border rounded p-2 w-full" required>
+                    <label for="name" class="block text-sm font-medium text-gray-800 dark:text-white">Nama Produk</label>
+                    <input type="text" name="name" id="name" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 w-full" required>
                 </div>
                 <div class="mb-4">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-                    <textarea name="description" id="description" class="border rounded p-2 w-full"></textarea>
+                    <label for="description" class="block text-sm font-medium text-gray-800 dark:text-white">Deskripsi</label>
+                    <textarea name="description" id="description" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 w-full"></textarea>
                 </div>
                 <div class="mb-4">
-                    <label for="price" class="block text-sm font-medium text-gray-700">Harga</label>
-                    <input type="number" name="price" id="price" class="border rounded p-2 w-full" required>
+                    <label for="price" class="block text-sm font-medium text-gray-800 dark:text-white">Harga</label>
+                    <input type="number" name="price" id="price" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 w-full" required>
                 </div>
                 <div class="mb-4">
-                    <label for="stock" class="block text-sm font-medium text-gray-700">Stok</label>
-                    <input type="number" name="stock" id="stock" class="border rounded p-2 w-full" required>
+                    <label for="stock" class="block text-sm font-medium text-gray-800 dark:text-white">Stok</label>
+                    <input type="number" name="stock" id="stock" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 w-full" required>
                 </div>
                 <div class="mb-4">
-                    <label for="category_id" class="block text-sm font-medium text-gray-700">Kategori</label>
-                    <select name="category_id" id="category_id" class="border rounded p-2 w-full">
+                    <label for="category_id" class="block text-sm font-medium text-gray-800 dark:text-white">Kategori</label>
+                    <select name="category_id" id="category_id" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 w-full">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-4">
-                    <label for="image" class="block text-sm font-medium text-gray-700">Gambar</label>
-                    <input type="file" name="image" id="image" class="border rounded p-2 w-full">
+                    <label for="image" class="block text-sm font-medium text-gray-800 dark:text-white">Gambar</label>
+                    <input type="file" name="image" id="image" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 w-full">
                 </div>
-                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Tambah Produk</button>
+                <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded">Tambah Produk</button>
             </form>
         </div>
 
         <!-- Tabel Daftar Produk -->
-        <div class="border border-gray-300 rounded-lg p-6 bg-white">
-            <h3 class="text-lg font-semibold mb-4">Daftar Produk</h3>
+        <div class="border border-gray-300 rounded-lg p-6 bg-white dark:bg-stone-600 ">
+            <h3 class="text-gray-800 dark:text-white text-lg font-semibold mb-4">Daftar Produk</h3>
             <table class="table-auto w-full border-collapse border border-gray-200">
-                <thead class="bg-gray-100">
+                <thead class="bg-gray-200 dark:bg-stone-800 text-gray-800 dark:text-white">
                     <tr>
                         <th class="border border-gray-300 px-4 py-2">No</th>
                         <th class="border border-gray-300 px-4 py-2">Nama Produk</th>
@@ -63,25 +82,25 @@
                 <tbody>
                     @foreach ($products as $product)
                         <tr>
-                            <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $product->name }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $product->description }}</td>
-                            <td class="border border-gray-300 px-4 py-2">Rp{{ number_format($product->price, 0, ',', '.') }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $product->stock }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $product->category->name }}</td>
-                            <td class="border border-gray-300 px-4 py-2">
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">{{ $loop->iteration }}</td>
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">{{ $product->name }}</td>
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">{{ $product->description }}</td>
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">{{ $product->stock }}</td>
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">{{ $product->category->name }}</td>
+                            <td class="border border-gray-300 text-gray-800 dark:text-white px-4 py-2">
                                 @if ($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
                                         class="w-30 h-30 object-cover">
                                 @else
-                                    <span class="text-gray-500">Tidak ada gambar</span>
+                                    <span class="text-gray-800 dark:text-white">Tidak ada gambar</span>
                                 @endif
                             </td>
                             <td class="px-4 py-2 text-center">
                                 <div class="flex justify-center space-x-2"> 
                                     <!-- Tombol Edit -->
                                     <a href="{{ route('products.edit', $product->id) }}"
-                                        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                                        class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600">
                                         Edit
                                     </a>
                                     <!-- Tombol Hapus -->

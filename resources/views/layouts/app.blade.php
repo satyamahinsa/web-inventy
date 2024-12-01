@@ -19,14 +19,14 @@
     </style>
 </head>
 <body class="font-sans antialiase">
-    <div class="min-h-screen bg-amber-50 dark:bg-gray-800 flex">
+    <div class="min-h-screen bg-amber-50 dark:bg-stone-700 flex">
         <!-- Sidebar -->
         @include('layouts.sidebar')
 
         <!-- Konten Utama -->
         <div id="mainContent" class="flex-1 transition-all duration-300 pl-64">
             @isset($header)
-                <header class="bg-amber-200 dark:bg-amber-500 shadow">
+                <header class="bg-stone-800 shadow">
                     <div class="max-w-7xl mx-auto py-3 px-4 sm:px-3 lg:px-8 flex items-center justify-between">
                         {{ $header }}
                     </div>

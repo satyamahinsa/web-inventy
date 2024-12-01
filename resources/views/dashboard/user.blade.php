@@ -1,36 +1,51 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Dashboard') }}
         </h2>
         <div class="flex items-center">
+            <div class="mr-6 flex items-center gap-2">
+                <i class="fas fa-sun text-yellow-400 text-lg"></i>
+                <input type="checkbox" id="toggleMode" class="hidden">
+                <label for="toggleMode">
+                    <div class="flex items-center w-9 h-5 bg-slate-500 rounded-full p-1 cursor-pointer">
+                        <div class="w-4 h-4 bg-white rounded-full toggleCircle"></div>
+                    </div>
+                </label>
+                <i class="fas fa-moon text-white text-lg"></i>
+            </div>
             <button class="mr-6">
-                <i class="fas fa-bell text-gray-500"></i>
+                <i class="fas fa-bell text-white"></i>
             </button>
             <div class="flex items-center space-x-3">
                 <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-                <span class="text-gray-900 font-medium dark:text-white">{{ Auth::user()->name }}</span>
+                <span class="text-white font-medium">{{ Auth::user()->name }}</span>
             </div>
         </div>
     </x-slot>
 
     <div class="container mx-auto my-5 px-4">
-        <!-- Hero Section -->
-        <div class="bg-green-500 dark:bg-green-800 p-6 rounded-lg shadow mb-6">
-            <h1 class="text-2xl font-bold text-white">Selamat Datang, {{ Auth::user()->name }}</h1>
-            <p class="text-sm text-white mt-2">Temukan produk terbaik kami untuk memenuhi kebutuhan Anda!</p>
+        <div class="p-6 text-gray-800 dark:text-white bg-amber-200 dark:bg-red-500 rounded-lg shadow mb-6">
+            @auth
+                <div class="text-2xl font-bold">
+                    {{ __('Selamat Datang, ') }}
+                    <span class="welcome-message font-bold uppercase">{{ Auth::user()->name }}</span>
+                </div>
+                <p class="text-sm mt-2">Temukan produk terbaik kami untuk memenuhi kebutuhan Anda!</p>
+            @else
+                <div>{{ __("You're not logged in!") }}</div>
+            @endauth
         </div>
 
         <div class="relative w-full overflow-hidden rounded-lg shadow-lg mb-6">
             <!-- Wrapper untuk carousel -->
-            <div class="relative mx-auto flex transition-transform duration-500 ease-in-out" id="carousel-wrapper">
+            <div class="relative w-full mx-auto flex transition-transform duration-500 ease-in-out" id="carousel-wrapper">
                 <!-- Slide 1 -->
                 <div class="flex-none w-full bg-purple-200 py-8 px-20 flex items-center justify-between">
                     <div>
-                        <h4 class="text-purple-700 font-medium text-lg">Official Store</h4>
-                        <h2 class="text-black font-extrabold text-3xl">Pasti Promo Pasti Ori</h2>
-                        <a href="#" class="text-purple-900 font-semibold mt-2 inline-block">Lihat Promo
-                            Lainnya</a>
+                        <h4 class="text-purple-700 font-medium text-lg">Tempat Terpercaya</h4>
+                        <h2 class="text-black font-extrabold text-3xl">Kebutuhan Anda, Langsung dari Pabrik</h2>
+                        <a href="{{ route('products.index') }}"" class="text-purple-900 font-semibold mt-2 inline-block">Lihat Katalog Produk</a>
                     </div>
                     <img src="path/to/image1.png" alt="Promo Image" class="h-32 object-contain">
                 </div>
@@ -38,8 +53,8 @@
                 <div class="flex-none w-full bg-blue-200 py-8 px-20 flex items-center justify-between">
                     <div>
                         <h4 class="text-blue-700 font-medium text-lg">Special Deals</h4>
-                        <h2 class="text-black font-extrabold text-3xl">Diskon Hingga 50%</h2>
-                        <a href="#" class="text-blue-900 font-semibold mt-2 inline-block">Belanja Sekarang</a>
+                        <h2 class="text-black font-extrabold text-3xl">Diskon Hingga 20%</h2>
+                        <a href="{{ route('products.index') }}" class="text-blue-900 font-semibold mt-2 inline-block">Belanja Sekarang</a>
                     </div>
                     <img src="path/to/image2.png" alt="Promo Image" class="h-32 object-contain">
                 </div>
@@ -48,7 +63,7 @@
                     <div>
                         <h4 class="text-green-700 font-medium text-lg">Limited Time</h4>
                         <h2 class="text-black font-extrabold text-3xl">Flash Sale Hari Ini</h2>
-                        <a href="#" class="text-green-900 font-semibold mt-2 inline-block">Lihat Sekarang</a>
+                        <a href="#flashSale" class="text-green-900 font-semibold mt-2 inline-block">Lihat Sekarang</a>
                     </div>
                     <img src="path/to/image3.png" alt="Promo Image" class="h-32 object-contain">
                 </div>
@@ -65,10 +80,10 @@
             </button>
         </div>
 
-        <div class="bg-amber-100 p-6 rounded-lg shadow-lg mb-6 relative">
+        <div class="bg-amber-200 p-6 rounded-lg shadow-lg mb-6 relative">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-amber-800">Flash Sale</h2>
+                    <h2 class="text-2xl font-bold text-red-500">Flash Sale</h2>
                     <p class="text-gray-600">Berakhir dalam
                         <span id="countdown"
                             class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:00:00</span>
@@ -78,14 +93,13 @@
             </div>
 
             <!-- Wrapper untuk Carousel Flash Sale -->
-            <div class="mt-4 overflow-hidden relative">
+            <div id="flashSale" class="mt-4 overflow-hidden relative">
                 <div id="flash-sale-wrapper" class="flex gap-4 transition-transform duration-500 ease-in-out">
                     <!-- Kartu Promo -->
                     <div
-                        class="flex-none w-48 bg-amber-300 rounded-lg p-4 flex flex-col items-center justify-center shadow">
-                        <h4 class="text-amber-700 font-bold text-lg">FLASH SALE</h4>
+                        class="flex-none w-48 bg-amber-500 rounded-lg p-4 flex flex-col items-center justify-center shadow">
                         <p class="text-amber-900 text-center text-2xl font-extrabold mt-2">Serba Diskon</p>
-                        <button class="bg-green-500 text-white font-medium px-4 py-2 rounded mt-4 hover:bg-green-600">
+                        <button class="bg-red-500 text-white font-medium px-4 py-2 rounded mt-4 hover:bg-red-600">
                             Cek Promo
                         </button>
                         <p class="text-xs text-gray-700 mt-2">*S&K Berlaku</p>

@@ -12,12 +12,16 @@ return new class extends Migration {
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('user_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
             $table->string('destination_address')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
-            $table->string('shipping_service');
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('total_amount', 10, 2);
+            $table->string('payment_method');
             $table->string('status');
             $table->timestamps();
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

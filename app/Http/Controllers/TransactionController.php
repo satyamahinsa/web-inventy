@@ -4,23 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::with('user')->get();
-        return view('transactions.index-admin', compact('transactions'));
-    }
+        $orders = Order::with('user')->get();
 
-    public function create()
-    {
-        $shippingServices = ['JNE', 'TIKI', 'Pos Indonesia', 'Gojek', 'Grab'];
-        $products = Product::all();
+        foreach ($orders as $order) {
+            if (!$order->transaction) {
+                Transaction::create([
+                    'order_id' => $order->id,
+                    'user_id' => $order->user_id,
+                    'name' => $order->name,
+                    'email' => $order->email,
+                    'phone' => $order->phone,
+                    'destination_address' => $order->address,
+                    'total_amount' => $order->total_amount,
+                    'payment_method' => $order->payment_method,
+                    'status' => $order->status,
+                ]);
+            }
+        }
 
-        return view('transactions.create', compact('shippingServices', 'products'));
+        if (Auth::user()->role === 'admin') {
+            $transactions = Transaction::with('user', 'order')->get();
+        } else {
+            $transactions = Transaction::with('user', 'order')->where('user_id', Auth::id())->get();
+        }
+
+        return view('transactions.index', compact('transactions'));
     }
 
     public function store(Request $request)
@@ -71,8 +88,7 @@ class TransactionController extends Controller
     public function edit($id)
     {
         $transaction = Transaction::findOrFail($id);
-        $shippingServices = ['JNE', 'TIKI', 'Pos Indonesia'];  // contoh data layanan pengiriman
-        return view('transactions.edit', compact('transaction', 'shippingServices'));
+        return view('transactions.edit', compact('transaction'));
     }
 
     public function update(Request $request, $id)

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-sky-50 leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Admin Dashboard') }}
         </h2>
         <div class="flex items-center">
@@ -12,24 +12,24 @@
                         <div class="w-4 h-4 bg-white rounded-full toggleCircle"></div>
                     </div>
                 </label>
-                <i class="fas fa-moon text-gray-600 dark:text-gray-300 text-lg"></i>
+                <i class="fas fa-moon text-white text-lg"></i>
             </div>
             <button class="mr-6">
-                <i class="fas fa-bell text-gray-800 dark:text-sky-50"></i>
+                <i class="fas fa-bell text-white"></i>
             </button>
             <div class="flex items-center space-x-3">
                 <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-                <span class="text-gray-800 dark:text-sky-50 font-medium">{{ Auth::user()->name }}</span>
+                <span class="text-white font-medium">{{ Auth::user()->name }}</span>
             </div>
         </div>
     </x-slot>
 
     <div class="container mx-auto my-5 px-4">
-        <div class="p-6 text-gray-800 dark:text-sky-50 bg-amber-200 dark:bg-sky-500 rounded-lg shadow mb-6">
+        <div class="p-6 text-gray-800 dark:text-white bg-amber-200 dark:bg-red-500 rounded-lg shadow mb-6">
             @auth
-                <div style="font-size: 1.2rem;">
-                    {{ __('Selamat datang Admin, ') }}
-                    <span class="welcome-message font-bold uppercase" style="font-size: 1.2rem;">{{ Auth::user()->name }}</span>
+                <div class="text-2xl font-bold">
+                    {{ __('Selamat Datang, ') }}
+                    <span class="welcome-message font-bold uppercase">{{ Auth::user()->name }}</span>
                 </div>
             @else
                 <div>{{ __("You're not logged in!") }}</div>
@@ -38,30 +38,30 @@
 
         {{-- KPI Section --}}
         <div class="grid grid-cols-4 gap-6 mb-6">
-            <div class="bg-amber-500 text-gray-800 p-4 rounded-lg shadow text-center">
+            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
                 <h3 class="text-lg font-semibold">Total Profit</h3>
                 <p class="text-3xl font-bold">Rp. {{ number_format($totalProfit) }}</p>
-                <p class="text-amber-200">+10% dari bulan lalu</p>
+                <p class="text-gray-800 dark:text-red-500">+10% dari bulan lalu</p>
             </div>
-            <div class="bg-amber-500 text-gray-800 p-4 rounded-lg shadow text-center">
+            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
                 <h3 class="text-lg font-semibold">Total Transaksi</h3>
                 <p class="text-3xl font-bold">{{ $totalTransactions }}</p>
-                <p class="text-amber-200">+8% dari bulan lalu</p>
+                <p class="text-gray-800 dark:text-red-500">+8% dari bulan lalu</p>
             </div>
-            <div class="bg-amber-500 text-gray-800 p-4 rounded-lg shadow text-center">
+            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
                 <h3 class="text-lg font-semibold">Total Pelanggan</h3>
                 <p class="text-3xl font-bold">{{ $totalCustomers }}</p>
-                <p class="text-amber-200">+5 pelanggan baru</p>
+                <p class="text-gray-800 dark:text-red-500">+5 pelanggan baru</p>
             </div>
-            <div class="bg-amber-500 text-gray-800 p-4 rounded-lg shadow text-center ">
+            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center ">
                 <h3 class="text-lg font-semibold">Rata-rata Order</h3>
                 <p class="text-3xl font-bold">Rp. {{ number_format($averageOrderValue) }}</p>
-                <p class="text-amber-200">+3% dari bulan lalu</p>
+                <p class="text-gray-800 dark:text-red-500">+3% dari bulan lalu</p>
             </div>
         </div>
 
         {{-- Timeseries Chart --}}
-        <div class="bg-white dark:bg-amber-800 text-gray-800 p-6 rounded-lg shadow-lg mb-6">
+        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg mb-6">
             <h3 class="text-xl font-semibold mb-4">Transaksi Per Bulan</h3>
             <div class="relative w-full h-auto max-h-80">
                 <canvas id="timeseriesChart" class="block w-full h-full"></canvas>
@@ -69,14 +69,14 @@
         </div>
 
         <div class="flex flex-wrap gap-6 mb-6">
-            <div class="flex-[6] bg-white dark:bg-amber-800 text-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="flex-[6] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Total Pendapatan per Kategori Produk</h3>
                 <div class="relative w-full h-auto max-h-80">
                     <canvas id="revenueByCategoryBarChart" class="block w-full h-full"></canvas>
                 </div>
             </div>
             
-            <div class="flex-[6] bg-white dark:bg-amber-800 text-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="flex-[6] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Pertumbuhan Pelanggan Baru per Bulan</h3>
                 <div class="relative w-full h-auto max-h-80">
                     <canvas id="monthlyCustomerGrowthBarChart" class="block w-full h-full"></canvas>
@@ -85,34 +85,32 @@
         </div>
 
         <div class="flex flex-wrap gap-6">
-            <div class="flex-[4] bg-white dark:bg-amber-800 text-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="flex-[4] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Kategori Produk Terlaris</h3>
                 <div class="relative w-full h-auto max-h-80">
                     <canvas id="categoryPieChart" class="block w-full h-full"></canvas>
                 </div>
             </div>
         
-            <div class="flex-[8] bg-white dark:bg-amber-800 text-gray-800 p-6 rounded-lg shadow-lg">
+            <div class="flex-[8] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Transaksi Terbaru</h3>
-                <table class="table-auto w-full text-left border-collapse border border-gray-300 text-white">
+                <table class="table-auto w-full text-left border-collapse border border-gray-300 text-gray-800 dark:text-white">
                     <thead>
-                        <tr class="bg-indigo-900">
+                        <tr class="bg-amber-200">
                             <th class="border border-gray-300 px-4 py-2">No.</th>
                             <th class="border border-gray-300 px-4 py-2">Pelanggan</th>
                             <th class="border border-gray-300 px-4 py-2">Total Harga</th>
                             <th class="border border-gray-300 px-4 py-2">Status</th>
-                            <th class="border border-gray-300 px-4 py-2">Layanan Pengiriman</th>
                             <th class="border border-gray-300 px-4 py-2">Alamat Tujuan</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($recentTransactions as $transaction)
                             <tr>
-                                <td class="border border-gray-300 px-4 py-2">{{ $loop->iteration }}</td>
+                                <td class="border border-gray-300 px-4 py-2">{{ $transaction->id }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $transaction->user->name }}</td>
-                                <td class="border border-gray-300 px-4 py-2">Rp. {{ number_format($transaction->total_price) }}</td>
+                                <td class="border border-gray-300 px-4 py-2">Rp. {{ number_format($transaction->total_amount) }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ ucfirst($transaction->status) }}</td>
-                                <td class="border border-gray-300 px-4 py-2">{{ $transaction->shipping_service }}</td>
                                 <td class="border border-gray-300 px-4 py-2">{{ $transaction->destination_address }}</td>
                             </tr>
                         @endforeach
