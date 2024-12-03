@@ -11,24 +11,24 @@ class DigitalReportController extends Controller
 {
     public function index()
     {
-        // Fetch summary data from appropriate models
         $totalTransactions = Transaction::count();
         $totalCustomers = User::count();
         $totalShippingServices = Transaction::select('shipping_service')->distinct()->count();
-        // $totalProductsSold = ProductTransaction::sum('quantity');
-        $totalSales = Transaction::sum('total_price');
+        $totalSales = Transaction::sum('total_amount');
         $averageOrderValue = $totalTransactions > 0 ? $totalSales / $totalTransactions : 0;
         $completedOrders = Transaction::where('status', 'completed')->count();
+        $totalCategory = Product::distinct('category_id')->count('category_id');
+        $totalProduct = Product::count('id');
 
-        // Return view with summary data
         return view('digital-report.index', [
             'totalTransactions' => $totalTransactions,
             'totalCustomers' => $totalCustomers,
             'totalShippingServices' => $totalShippingServices,
-            // 'totalProductsSold' => $totalProductsSold,
             'totalSales' => $totalSales,
             'averageOrderValue' => $averageOrderValue,
             'completedOrders' => $completedOrders,
+            'totalCategory' => $totalCategory,
+            'totalProduct' => $totalProduct,
         ]);
     }
 
@@ -48,7 +48,7 @@ class DigitalReportController extends Controller
     {
         $users = User::all()->map(function ($user) {
             $user->total_transactions = Transaction::where('user_id', $user->id)->count();
-            $user->total_spent = Transaction::where('user_id', $user->id)->sum('total_price');
+            $user->total_spent = Transaction::where('user_id', $user->id)->sum('total_amount');
             return $user;
         });
 

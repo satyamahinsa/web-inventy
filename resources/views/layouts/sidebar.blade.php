@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<div id="sidebar" class="bg-amber-500 text-white dark:text-gray-800 fixed h-screen p-4 z-10 top-0 left-0 flex flex-col justify-between w-64">
+<div id="sidebar" class="bg-amber-300 text-gray-800 fixed h-screen p-4 z-10 top-0 left-0 flex flex-col justify-between w-64">
     <!-- Logo dan Tombol Hamburger -->
     <div class="flex flex-col">
         <div id="sidebarHeader" class="ml-3 flex items-center justify-between mb-8">
@@ -39,12 +39,12 @@
             @endif
             <a href="{{ route('transactions.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                 <i class="fas fa-exchange-alt text-lg"></i>
-                <span class="menu-text ml-2 opacity-100">Transactions</span>
+                <span class="menu-text ml-2 opacity-100">Transaksi</span>
             </a>
             @if(auth()->user() && auth()->user()->role === 'admin')
             <a href="{{ route('digital-report.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
                 <i class="fas fa-chart-line text-lg"></i>
-                <span class="menu-text ml-2 opacity-100">Report</span>
+                <span class="menu-text ml-2 opacity-100">Laporan Penjualan</span>
             </a>
             @endif
         </nav>

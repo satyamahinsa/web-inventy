@@ -25,7 +25,7 @@
     </x-slot>
 
     <div class="container mx-auto my-5 px-4">
-        <div class="p-6 text-gray-800 dark:text-white bg-amber-200 dark:bg-red-500 rounded-lg shadow mb-6">
+        <div class="p-6 text-gray-800 dark:text-white bg-amber-500 dark:bg-red-500 rounded-lg shadow mb-6">
             @auth
                 <div class="text-2xl font-bold">
                     {{ __('Selamat Datang, ') }}
@@ -38,30 +38,30 @@
 
         {{-- KPI Section --}}
         <div class="grid grid-cols-4 gap-6 mb-6">
-            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
+            <div class="bg-red-500 dark:bg-amber-500 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
                 <h3 class="text-lg font-semibold">Total Profit</h3>
                 <p class="text-3xl font-bold">Rp. {{ number_format($totalProfit) }}</p>
-                <p class="text-gray-800 dark:text-red-500">+10% dari bulan lalu</p>
+                {{-- <p class="text-gray-800 dark:text-white">+10% dari bulan lalu</p> --}}
             </div>
-            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
+            <div class="bg-red-500 dark:bg-amber-500 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
                 <h3 class="text-lg font-semibold">Total Transaksi</h3>
                 <p class="text-3xl font-bold">{{ $totalTransactions }}</p>
-                <p class="text-gray-800 dark:text-red-500">+8% dari bulan lalu</p>
+                {{-- <p class="text-gray-800 dark:text-white">+8% dari bulan lalu</p> --}}
             </div>
-            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
+            <div class="bg-red-500 dark:bg-amber-500 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center">
                 <h3 class="text-lg font-semibold">Total Pelanggan</h3>
                 <p class="text-3xl font-bold">{{ $totalCustomers }}</p>
-                <p class="text-gray-800 dark:text-red-500">+5 pelanggan baru</p>
+                {{-- <p class="text-gray-800 dark:text-white">+5 pelanggan baru</p> --}}
             </div>
-            <div class="bg-red-500 dark:bg-amber-200 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center ">
+            <div class="bg-red-500 dark:bg-amber-500 dark:text-gray-800 text-white p-4 rounded-lg shadow text-center ">
                 <h3 class="text-lg font-semibold">Rata-rata Order</h3>
                 <p class="text-3xl font-bold">Rp. {{ number_format($averageOrderValue) }}</p>
-                <p class="text-gray-800 dark:text-red-500">+3% dari bulan lalu</p>
+                {{-- <p class="text-gray-800 dark:text-white">+3% dari bulan lalu</p> --}}
             </div>
         </div>
 
         {{-- Timeseries Chart --}}
-        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg mb-6">
+        <div class="bg-white dark:bg-stone-300 text-gray-800 p-6 rounded-lg shadow-lg mb-6">
             <h3 class="text-xl font-semibold mb-4">Transaksi Per Bulan</h3>
             <div class="relative w-full h-auto max-h-80">
                 <canvas id="timeseriesChart" class="block w-full h-full"></canvas>
@@ -69,14 +69,14 @@
         </div>
 
         <div class="flex flex-wrap gap-6 mb-6">
-            <div class="flex-[6] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
+            <div class="flex-[6] bg-white dark:bg-stone-300 text-gray-800 p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Total Pendapatan per Kategori Produk</h3>
                 <div class="relative w-full h-auto max-h-80">
                     <canvas id="revenueByCategoryBarChart" class="block w-full h-full"></canvas>
                 </div>
             </div>
             
-            <div class="flex-[6] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
+            <div class="flex-[6] bg-white dark:bg-stone-300 text-gray-800 p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Pertumbuhan Pelanggan Baru per Bulan</h3>
                 <div class="relative w-full h-auto max-h-80">
                     <canvas id="monthlyCustomerGrowthBarChart" class="block w-full h-full"></canvas>
@@ -85,18 +85,18 @@
         </div>
 
         <div class="flex flex-wrap gap-6">
-            <div class="flex-[4] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
+            <div class="flex-[4] bg-white dark:bg-stone-300 text-gray-800 p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Kategori Produk Terlaris</h3>
                 <div class="relative w-full h-auto max-h-80">
                     <canvas id="categoryPieChart" class="block w-full h-full"></canvas>
                 </div>
             </div>
         
-            <div class="flex-[8] bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg">
+            <div class="flex-[8] bg-white dark:bg-stone-300 text-gray-800 p-6 rounded-lg shadow-lg">
                 <h3 class="text-xl font-semibold mb-4">Transaksi Terbaru</h3>
-                <table class="table-auto w-full text-left border-collapse border border-gray-300 text-gray-800 dark:text-white">
+                <table class="table-auto w-full text-left border-collapse border border-gray-300 text-gray-800">
                     <thead>
-                        <tr class="bg-amber-200">
+                        <tr class="bg-amber-500">
                             <th class="border border-gray-300 px-4 py-2">No.</th>
                             <th class="border border-gray-300 px-4 py-2">Pelanggan</th>
                             <th class="border border-gray-300 px-4 py-2">Total Harga</th>

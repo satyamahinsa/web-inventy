@@ -18,8 +18,6 @@ return new class extends Migration {
             $table->string('email');
             $table->string('phone');
             $table->string('destination_address')->nullable();
-            $table->decimal('latitude', 10, 7)->nullable();
-            $table->decimal('longitude', 10, 7)->nullable();
             $table->decimal('total_amount', 10, 2);
             $table->string('payment_method');
             $table->string('status');

@@ -36,11 +36,11 @@
                 </div>
             </div>
 
-            <form id="editTransactionForm" action="/transactions/{{ $transaction->id }}" method="POST">
+            <form id="editTransactionForm" action="/transactions/{{ $transaction->id }}" method="POST" class="flex flex-col h-full">
                 @csrf
                 @method('PUT')
 
-                <div class="mt-6 grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
+                <div class="mt-6 grid gap-4 lg:grid-cols-2 lg:grid-rows-2">
                     <div class="relative lg:row-start-1 w-full">
                         <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tl-[2rem]">
                             <label for="id_transaksi" class="block text-md font-medium text-gray-800 dark:text-white">ID Transaksi</label>
@@ -58,69 +58,51 @@
                     </div>
 
                     <!-- Status & Alamat -->
-                    <div class="relative lg:row-start-2 w-full">
-                        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-bl-[2rem]">
-                            <label class="block text-md font-medium text-gray-800 dark:text-white mt-4">Status</label>
+                    <div class="relative lg:row-start-1 w-full">
+                        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tr-[2rem]">
+                            <label for="status"class="block text-md font-medium text-gray-800 dark:text-white">Total Harga</label>
+                            <input type="text" value="Rp. {{ number_format($transaction->total_amount) }}"
+                                class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                                readonly>
+                            <label for="status"
+                                class="block text-md font-medium text-gray-800 dark:text-white mt-4">Status</label>
                             <select name="status" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full">
                                 <option value="completed" {{ $transaction->status == 'completed' ? 'selected' : '' }}>Completed</option>
                                 <option value="pending" {{ $transaction->status == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="canceled" {{ $transaction->status == 'canceled' ? 'selected' : '' }}>Canceled</option>
                             </select>
-                            <label for="alamat-tujuan" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Alamat Tujuan</label>
-                            <textarea name="alamat-tujuan" rows="4" class="block mt-2 w-full bg-white border rounded px-3 py-2">{{ $transaction->destination_address }}</textarea>
-                        </div>
-                    </div>
-
-                    <!-- Layanan Pengiriman & Peta -->
-                    <div class="relative lg:row-start-1 lg:col-start-2 lg:col-span-2 w-full">
-                        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tr-[2rem]">
-                            <label for="lacak_pengiriman" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Lacak Pengiriman</label>
-                            <div id="map" class="mt-4 h-52"></div>
+                            <label for="alamat_tujuan"
+                                class="block text-md font-medium text-gray-800 dark:text-white mt-4">Alamat Tujuan</label>
+                                <textarea name="alamat-tujuan" rows="4" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 mb-2.5 w-full">{{ $transaction->destination_address }}</textarea>
                         </div>
                     </div>
 
                     <!-- Total Harga & Produk -->
-                    <div class="relative lg:row-start-2 lg:col-start-2 lg:col-span-2 w-full">
-                        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-br-[2rem]">
-                            <h3 class="text-lg font-medium text-gray-950">Total Harga</h3>
-                            <input type="text" value="Rp. {{ number_format($transaction->total_amount) }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
-        
-                            <h3 class="text-lg font-medium text-gray-950 mt-4">Daftar Produk Dibeli</h3>
-                            <ul class="list-disc pl-5 mt-2 text-gray-800 dark:text-white">
-                                @foreach ($transaction->products as $product)
-                                    <li>{{ $product->name }} ({{ $product->pivot->quantity }})</li>
-                                @endforeach
-                            </ul>
-
+                    <div class="relative lg:row-start-2 lg:col-start-1 lg:col-span-2 w-full">
+                        <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-bl-[2rem] rounded-br-[2rem]">
+                            <label for="alamat_tujuan" class="block text-md font-medium text-gray-800 dark:text-white">Daftar Produk</label>
+                            <div class="overflow-x-auto mt-2">
+                                <div class="flex space-x-4">
+                                    @foreach ($transaction->products as $product)
+                                        <div class="min-w-max w-1/4 p-2">
+                                            <div class="bg-amber-500 border border-gray-200 dark:border-gray-600 p-4 rounded-lg shadow-lg">
+                                                <h4 class="text-md font-semibold text-gray-800 dark:text-white">{{ $product->name }}</h4>
+                                                <p class="text-sm text-gray-500 dark:text-gray-300">Jumlah: {{ $product->pivot->quantity }}</p>
+                                                <p class="mt-2 text-lg font-medium text-gray-900 dark:text-gray-100">Rp. {{ number_format($product->price) }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="mt-8 mx-auto text-center">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md">
-                            Simpan Perubahan
-                        </button>
-                    </div>
+                </div>
+                <div class="mt-auto text-center mb-4">
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg shadow-md">
+                        Simpan Perubahan
+                    </button>
                 </div>
             </form>
         </div>
     </div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        const map = L.map('map').setView([-7.2575, 112.7521], 13);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 15,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-
-        const transaction = @json($transaction);
-        const deliveryCoordinates = [transaction.latitude, transaction.longitude];
-        const marker = L.marker(deliveryCoordinates)
-            .addTo(map)
-            .bindPopup(`Dalam Perjalanan: ${transaction.destination_address}`)
-            .openPopup();
-
-        map.setView(deliveryCoordinates, 10);
-    </script>
 </x-app-layout>

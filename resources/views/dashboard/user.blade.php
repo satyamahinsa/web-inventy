@@ -25,7 +25,7 @@
     </x-slot>
 
     <div class="container mx-auto my-5 px-4">
-        <div class="p-6 text-gray-800 dark:text-white bg-amber-200 dark:bg-red-500 rounded-lg shadow mb-6">
+        <div class="p-6 text-gray-800 dark:text-white bg-amber-500 dark:bg-red-500 rounded-lg shadow mb-6">
             @auth
                 <div class="text-2xl font-bold">
                     {{ __('Selamat Datang, ') }}
@@ -47,7 +47,7 @@
                         <h2 class="text-black font-extrabold text-3xl">Kebutuhan Anda, Langsung dari Pabrik</h2>
                         <a href="{{ route('products.index') }}"" class="text-purple-900 font-semibold mt-2 inline-block">Lihat Katalog Produk</a>
                     </div>
-                    <img src="path/to/image1.png" alt="Promo Image" class="h-32 object-contain">
+                    {{-- <img src="path/to/image1.png" alt="Promo Image" class="h-32 object-contain"> --}}
                 </div>
                 <!-- Slide 2 -->
                 <div class="flex-none w-full bg-blue-200 py-8 px-20 flex items-center justify-between">
@@ -56,7 +56,7 @@
                         <h2 class="text-black font-extrabold text-3xl">Diskon Hingga 20%</h2>
                         <a href="{{ route('products.index') }}" class="text-blue-900 font-semibold mt-2 inline-block">Belanja Sekarang</a>
                     </div>
-                    <img src="path/to/image2.png" alt="Promo Image" class="h-32 object-contain">
+                    {{-- <img src="path/to/image2.png" alt="Promo Image" class="h-32 object-contain"> --}}
                 </div>
                 <!-- Slide 3 -->
                 <div class="flex-none w-full bg-green-200 py-8 px-20 flex items-center justify-between">
@@ -65,7 +65,7 @@
                         <h2 class="text-black font-extrabold text-3xl">Flash Sale Hari Ini</h2>
                         <a href="#flashSale" class="text-green-900 font-semibold mt-2 inline-block">Lihat Sekarang</a>
                     </div>
-                    <img src="path/to/image3.png" alt="Promo Image" class="h-32 object-contain">
+                    {{-- <img src="path/to/image3.png" alt="Promo Image" class="h-32 object-contain"> --}}
                 </div>
             </div>
 
@@ -80,10 +80,10 @@
             </button>
         </div>
 
-        <div class="bg-amber-200 p-6 rounded-lg shadow-lg mb-6 relative">
+        <div class="bg-amber-500 p-6 rounded-lg shadow-lg mb-6 relative">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-2xl font-bold text-red-500">Flash Sale</h2>
+                    <h2 class="text-2xl font-bold text-amber-900">Flash Sale</h2>
                     <p class="text-gray-600">Berakhir dalam
                         <span id="countdown"
                             class="bg-red-500 text-white px-2 py-1 rounded-lg font-semibold text-sm">01:00:00</span>
@@ -97,7 +97,7 @@
                 <div id="flash-sale-wrapper" class="flex gap-4 transition-transform duration-500 ease-in-out">
                     <!-- Kartu Promo -->
                     <div
-                        class="flex-none w-48 bg-amber-500 rounded-lg p-4 flex flex-col items-center justify-center shadow">
+                        class="flex-none w-48 bg-amber-300 rounded-lg p-4 flex flex-col items-center justify-center shadow">
                         <p class="text-amber-900 text-center text-2xl font-extrabold mt-2">Serba Diskon</p>
                         <button class="bg-red-500 text-white font-medium px-4 py-2 rounded mt-4 hover:bg-red-600">
                             Cek Promo
