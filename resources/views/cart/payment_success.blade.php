@@ -27,10 +27,18 @@
                             <li style="margin-bottom: 8px; color: #333; font-size: 0.875rem;"><strong>Email:</strong> {{ $order->email }}</li>
                             <li style="margin-bottom: 8px; color: #333; font-size: 0.875rem;"><strong>Telepon:</strong> {{ $order->phone }}</li>
                             <li style="margin-bottom: 8px; color: #333; font-size: 0.875rem;"><strong>Alamat:</strong> {{ $order->address }}</li>
+                            <li style="margin-bottom: 8px; color: #333; font-size: 0.875rem;"><strong>Produk yang Dibeli:</strong>
+                                <ul>
+                                    @foreach ($products as $product)
+                                        <li>{{ $product->name }} ({{ $product->pivot->quantity }})</li>
+                                    @endforeach
+                                </ul>
+                            </li>
                             <li style="margin-bottom: 8px; color: #333; font-size: 0.875rem;"><strong>Total Pembayaran:</strong> Rp {{ number_format($order->total_amount, 0, ',', '.') }}</li>
                             <li style="margin-bottom: 8px; color: #333; font-size: 0.875rem;"><strong>Metode Pembayaran:</strong> {{ strtoupper($order->payment_method) }}</li>
                         </ul>
                     </div>
+
 
                     <div style="text-align: center; margin-top: 10px;">
                         <a href="{{ route('cart.index') }}" class="btn btn-primary"

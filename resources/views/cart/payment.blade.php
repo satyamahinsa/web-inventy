@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -122,6 +123,19 @@
                         <input type="hidden" id="payment-method-hidden" name="payment_method">
 
                         <div class="mb-3">
+                            <label class="form-label" style="color: #d88a2e; ">Produk yang Dibeli</label>
+                            <ul class="list-group">
+                                @foreach ($cart as $item)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span style="font-size: 1rem;">{{ $item['name'] }}</span>
+                                        <span class="badge bg-secondary"
+                                            style="font-size: 0.9rem;">{{ $item['quantity'] }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        <div class="mb-3">
                             <label for="subtotal" class="form-label" style="color: #d88a2e;">Subtotal Pembelian</label>
                             <input type="hidden" id="amount" name="amount" value="{{ $grandTotal }}">
                             <input type="text" id="subtotal" value="{{ number_format($grandTotal, 0, ',', '.') }}"
@@ -144,8 +158,8 @@
             const phone = document.getElementById('phone').value;
             const address = document.getElementById('address').value;
             const selectedMethod = document.getElementById('payment-method').value;
-            const paymentOption = document.querySelector('input[name="bankOption"]:checked') || 
-                                  document.querySelector('input[name="walletOption"]:checked');
+            const paymentOption = document.querySelector('input[name="bankOption"]:checked') ||
+                document.querySelector('input[name="walletOption"]:checked');
 
             if (phone.length > 13) {
                 Swal.fire({

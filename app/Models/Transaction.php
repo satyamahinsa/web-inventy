@@ -10,9 +10,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = ['order_id', 'user_id', 'name', 'email', 'phone', 'destination_address', 'total_amount', 'payment_method', 'status'];
-    protected $casts = [
-        'products' => 'array',
-    ];
+
 
     public function user()
     {
@@ -21,8 +19,10 @@ class Transaction extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('quantity');
-    }
+        return $this->belongsToMany(Product::class, 'product_transaction')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }    
 
     public function order()
     {

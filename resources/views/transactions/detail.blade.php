@@ -28,7 +28,8 @@
     <div class="container mx-auto my-5 px-4">
         <div class="flex justify-end items-center">
             <div class="flex space-x-2">
-                <button onclick="window.print()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
+                <button onclick="window.print()"
+                    class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
                     <i class="fas fa-print mr-2"></i>
                     Print Invoice
                 </button>
@@ -37,57 +38,79 @@
 
         <div class="mt-6 grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
             <div class="relative lg:row-start-1 w-full">
-                <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tl-[2rem]">
-                    <label for="id_transaksi" class="block text-md font-medium text-gray-800 dark:text-white">ID Transaksi</label>
-                    <input type="text" name="id_transaksi" id="id_transaksi" value="{{ $transaction->id }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
-                    
-                    <label for="tanggal_pembelian" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Tanggal Pembelian</label>
-                    <input type="date" name="tanggal_pembelian" id="tanggal_pembelian" value="{{ $transaction->created_at->format('Y-m-d') }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
-                    
-                    <label for="nama_lengkap" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Nama Lengkap</label>
-                    <input type="text" name="nama_lengkap" id="nama_lengkap" value="{{ $transaction->user->name }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
-                    
-                    <label for="email" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Email</label>
-                    <input type="email" name="email" id="email" value="{{ $transaction->user->email }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
+                <div
+                    class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tl-[2rem]">
+                    <label for="id_transaksi" class="block text-md font-medium text-gray-800 dark:text-white">ID
+                        Transaksi</label>
+                    <input type="text" name="id_transaksi" id="id_transaksi" value="{{ $transaction->id }}"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>
+
+                    <label for="tanggal_pembelian"
+                        class="block text-md font-medium text-gray-800 dark:text-white mt-4">Tanggal Pembelian</label>
+                    <input type="date" name="tanggal_pembelian" id="tanggal_pembelian"
+                        value="{{ $transaction->created_at->format('Y-m-d') }}"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>
+
+                    <label for="nama_lengkap" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Nama
+                        Lengkap</label>
+                    <input type="text" name="nama_lengkap" id="nama_lengkap" value="{{ $transaction->user->name }}"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>
+
+                    <label for="email"
+                        class="block text-md font-medium text-gray-800 dark:text-white mt-4">Email</label>
+                    <input type="email" name="email" id="email" value="{{ $transaction->user->email }}"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>
                 </div>
             </div>
 
             <!-- Status dan Alamat Pengiriman -->
             <div class="relative lg:row-start-2 w-full">
-                <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-bl-[2rem]">
-                    <label for="status" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Status</label>
-                    <input type="text" name="status" id="status" value="{{ ucfirst($transaction->status) }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
+                <div
+                    class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-bl-[2rem]">
+                    <label for="status"
+                        class="block text-md font-medium text-gray-800 dark:text-white mt-4">Status</label>
+                    <input type="text" name="status" id="status" value="{{ ucfirst($transaction->status) }}"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>
 
-                    <label for="alamat_tujuan" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Alamat Tujuan</label>
-                    <textarea rows="4" name="alamat_tujuan" id="alamat_tujuan" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>{{ $transaction->destination_address }}</textarea>
+                    <label for="alamat_tujuan"
+                        class="block text-md font-medium text-gray-800 dark:text-white mt-4">Alamat Tujuan</label>
+                    <textarea rows="4" name="alamat_tujuan" id="alamat_tujuan"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>{{ $transaction->destination_address }}</textarea>
                 </div>
             </div>
 
             <!-- Layanan Pengiriman dan Lokasi -->
             <div class="relative lg:row-start-1 lg:col-start-2 lg:col-span-2 w-full">
-                <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tr-[2rem]">
-                    <label for="lacak_pengiriman" class="block text-md font-medium text-gray-800 dark:text-white mt-4">Lacak Pengiriman</label>
+                <div
+                    class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-tr-[2rem]">
+                    <label for="lacak_pengiriman"
+                        class="block text-md font-medium text-gray-800 dark:text-white mt-4">Lacak Pengiriman</label>
                     <div id="map" class="mt-4 h-52"></div>
                 </div>
             </div>
 
             <!-- Harga dan Produk -->
             <div class="relative lg:row-start-2 lg:col-start-2 lg:col-span-2 w-full">
-                <div class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-br-[2rem]">
+                <div
+                    class="bg-white dark:bg-stone-600 text-gray-800 dark:text-white p-6 rounded-lg shadow-lg rounded-br-[2rem]">
                     <h3 class="text-lg font-medium text-gray-950">Total Harga</h3>
-                    <input type="text" value="Rp. {{ number_format($transaction->total_amount) }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
+                    <input type="text" value="Rp. {{ number_format($transaction->total_amount) }}"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full"
+                        readonly>
 
-                    <h3 class="text-lg font-medium text-gray-950 mt-4">Daftar Produk</h3>
-                    {{-- <div class="mt-2 overflow-x-auto flex space-x-4">
+                    <h3 class="text-lg font-medium text-gray-950 mt-4">Daftar Produk Dibeli</h3>
+                    <ul class="list-disc pl-5 mt-2 text-gray-800 dark:text-white">
                         @foreach ($transaction->products as $product)
-                            <div class="bg-white border rounded-lg shadow-md p-4 min-w-[150px]">
-                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full mb-2">
-                                <h4 class="font-semibold text-gray-800">{{ $product->name }}</h4>
-                                <p class="text-gray-600">Harga: Rp {{ number_format($product->price, 2) }}</p>
-                                <p class="text-gray-600">Jumlah: {{ $product->quantity }}</p>
-                            </div>
+                            <li>{{ $product->name }} ({{ $product->pivot->quantity }})</li>
                         @endforeach
-                    </div> --}}
+                    </ul>
+
                 </div>
             </div>
         </div>
@@ -108,7 +131,7 @@
             .addTo(map)
             .bindPopup(`Dalam Perjalanan: ${transaction.destination_address}`)
             .openPopup();
-        
+
         map.setView(deliveryCoordinates, 10);
     </script>
 </x-app-layout>

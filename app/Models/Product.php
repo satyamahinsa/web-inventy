@@ -18,12 +18,21 @@ class Product extends Model
         'image',
     ];
 
-    public function transactions()
-    {
-        return $this->belongsToMany(Transaction::class)->withPivot('quantity');
-    }
+
     public function category() 
     {
         return $this->belongsTo(Category::class);
     }
+    public function orderProducts()
+    {
+        return $this->belongsToMany(Product::class, 'order_product')
+                    ->withPivot('quantity');
+    }
+    
+    public function transactions()
+    {
+        return $this->belongsToMany(Transaction::class, 'product_transaction')
+                    ->withPivot('quantity');
+    } 
+
 }

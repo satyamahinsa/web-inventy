@@ -52,7 +52,7 @@
 
     <!-- Footer dengan Tombol Lain -->
     <div class="mt-auto space-y-4">
-        <a href="#" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+        <a href="{{ route('profile.edit') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
             <i class="fas fa-cog text-lg"></i>
             <span class="menu-text ml-2 opacity-100">Settings</span>
         </a>

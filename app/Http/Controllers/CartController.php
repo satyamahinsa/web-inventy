@@ -34,19 +34,22 @@ class CartController extends Controller
 
     public function showPaymentPage()
     {
-        // Ambil data keranjang dari session atau database
+        // Ambil data keranjang dari session
         $cart = session()->get('cart', []);
-
+    
         // Hitung total keseluruhan
-        $grandTotal = 0;
-        foreach ($cart as $item) {
-            $grandTotal += $item['price'] * $item['quantity'];
-        }
-
+        $grandTotal = array_reduce($cart, function ($total, $item) {
+            return $total + ($item['price'] * $item['quantity']);
+        }, 0);
+    
+        // Simpan nama produk ke dalam session
+        session(['products' => array_column($cart, 'name')]);
+    
         // Kirim data keranjang dan grand total ke view pembayaran
         return view('cart.payment', [
             'cart' => $cart,
             'grandTotal' => $grandTotal
         ]);
     }
+    
 }
