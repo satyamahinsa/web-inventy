@@ -21,17 +21,18 @@ class Order extends Model
         'status',
     ];
 
-    protected $casts = [
-        'products' => 'array',
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function transaction()
+    public function transactions()
     {
-        return $this->hasOne(Transaction::class);
+        return $this->hasMany(Transaction::class);
     }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'order_product')->withPivot('quantity')->withTimestamps();
+    }
+
 }

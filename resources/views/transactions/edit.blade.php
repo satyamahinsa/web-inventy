@@ -85,17 +85,13 @@
                             <h3 class="text-lg font-medium text-gray-950">Total Harga</h3>
                             <input type="text" value="Rp. {{ number_format($transaction->total_amount) }}" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded p-2 mt-2 w-full" readonly>
         
-                            <h3 class="text-lg font-medium text-gray-950 mt-4">Daftar Produk</h3>
-                            {{-- <div class="mt-2 overflow-x-auto flex space-x-4">
+                            <h3 class="text-lg font-medium text-gray-950 mt-4">Daftar Produk Dibeli</h3>
+                            <ul class="list-disc pl-5 mt-2 text-gray-800 dark:text-white">
                                 @foreach ($transaction->products as $product)
-                                    <div class="bg-white border rounded-lg shadow-md p-4 min-w-[150px]">
-                                        <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full mb-2">
-                                        <h4 class="font-semibold text-gray-800">{{ $product->name }}</h4>
-                                        <p class="text-gray-600">Harga: Rp {{ number_format($product->price, 2) }}</p>
-                                        <p class="text-gray-600">Jumlah: {{ $product->quantity }}</p>
-                                    </div>
+                                    <li>{{ $product->name }} ({{ $product->pivot->quantity }})</li>
                                 @endforeach
-                            </div> --}}
+                            </ul>
+
                         </div>
                     </div>
 
