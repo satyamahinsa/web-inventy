@@ -96,7 +96,7 @@
                         <div class="flex space-x-4">
                             @foreach ($transaction->products as $product)
                                 <div class="min-w-max w-1/4 p-2">
-                                    <div class="bg-amber-500 border border-gray-200 dark:border-gray-600 p-4 rounded-lg shadow-lg">
+                                    <div class="bg-amber-600 border border-gray-200 dark:border-gray-600 p-4 rounded-lg shadow-lg">
                                         <h4 class="text-md font-semibold text-gray-800 dark:text-white">{{ $product->name }}</h4>
                                         <p class="text-sm text-gray-500 dark:text-gray-300">Jumlah: {{ $product->pivot->quantity }}</p>
                                         <p class="mt-2 text-lg font-medium text-gray-900 dark:text-gray-100">Rp. {{ number_format($product->price) }}</p>

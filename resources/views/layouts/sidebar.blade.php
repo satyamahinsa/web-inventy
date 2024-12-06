@@ -18,13 +18,13 @@
 
         <!-- Navigation Links -->
         <nav class="space-y-4">
-            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+            <a href="{{ route('dashboard') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200">
                 <i class="fas fa-home text-lg"></i>
                 <span class="menu-text ml-2 opacity-100">Dashboard</span>
             </a>
             <!-- Menampilkan link produk untuk user biasa -->
             @if(auth()->user() && auth()->user()->role === 'user')
-                <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+                <a href="{{ route('products.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200">
                     <i class="fas fa-box text-lg"></i>
                     <span class="menu-text ml-2 opacity-100">Produk</span>
                 </a>
@@ -32,17 +32,17 @@
 
             <!-- Menampilkan link produk hanya untuk admin -->
             @if(auth()->user() && auth()->user()->role === 'admin')
-                <a href="{{ route('products.create') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+                <a href="{{ route('products.create') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200">
                     <i class="fas fa-box text-lg"></i>
                     <span class="menu-text ml-2 opacity-100">Tambah Produk</span>
                 </a>
             @endif
-            <a href="{{ route('transactions.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+            <a href="{{ route('transactions.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200">
                 <i class="fas fa-exchange-alt text-lg"></i>
                 <span class="menu-text ml-2 opacity-100">Transaksi</span>
             </a>
             @if(auth()->user() && auth()->user()->role === 'admin')
-            <a href="{{ route('digital-report.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+            <a href="{{ route('digital-report.index') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200">
                 <i class="fas fa-chart-line text-lg"></i>
                 <span class="menu-text ml-2 opacity-100">Laporan Penjualan</span>
             </a>
@@ -52,7 +52,7 @@
 
     <!-- Footer dengan Tombol Lain -->
     <div class="mt-auto space-y-4">
-        <a href="{{ route('profile.edit') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200">
+        <a href="{{ route('profile.edit') }}" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200">
             <i class="fas fa-cog text-lg"></i>
             <span class="menu-text ml-2 opacity-100">Settings</span>
         </a>
@@ -60,7 +60,7 @@
         <!-- Log Out Form -->
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="group flex items-center space-x-4 p-2 rounded hover:bg-amber-800 dark:hover:bg-amber-200 w-full focus:outline-none">
+            <button type="submit" class="group flex items-center space-x-4 p-2 rounded hover:bg-white dark:hover:bg-amber-200 w-full focus:outline-none">
                 <i class="fas fa-sign-out-alt text-lg"></i>
                 <span class="menu-text ml-2 opacity-100">Log Out</span>
             </button>

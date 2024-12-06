@@ -28,17 +28,23 @@
     <div class="container mx-auto my-5 px-4">
         <div class="flex justify-between items-center">
             <div class="flex space-x-5">
-                <input id="searchInput" type="text" placeholder="Cari nomor transaksi" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white placeholder-gray-800 dark:placeholder-white border dark:border-white rounded py-2 px-4 w-40 sm:w-52 md:w-64" onkeyup="filterTable()">
+                <input id="searchInput" type="text" placeholder="Cari nomor transaksi"
+                    class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white placeholder-gray-800 dark:placeholder-white border dark:border-white rounded py-2 px-4 w-40 sm:w-52 md:w-64"
+                    onkeyup="filterTable()">
             </div>
             <div class="flex flex-wrap space-x-5 gap-2 items-center">
                 <div class="flex items-center space-x-2">
                     <label for="filterDate" class="text-gray-800 dark:text-white text-lg font-semibold">Tanggal</label>
-                    <input id="filterDate" type="date" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded py-2 px-4 w-20 sm:w-32 md:w-44" onchange="filterTable()">
+                    <input id="filterDate" type="date"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded py-2 px-4 w-20 sm:w-32 md:w-44"
+                        onchange="filterTable()">
                 </div>
-            
+
                 <div class="flex items-center space-x-2">
                     <label for="filterStatus" class="text-gray-800 dark:text-white text-lg font-semibold">Status</label>
-                    <select id="filterStatus" class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded py-2 px-4 w-20 sm:w-32 md:w-44" onchange="filterTable()">
+                    <select id="filterStatus"
+                        class="bg-white dark:bg-gray-500 text-gray-800 dark:text-white border dark:border-white rounded py-2 px-4 w-20 sm:w-32 md:w-44"
+                        onchange="filterTable()">
                         <option value="">Semua</option>
                         <option value="completed">Completed</option>
                         <option value="pending">Pending</option>
@@ -66,7 +72,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium">{{ $transaction->id }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td class="px-6 py-4 whitespace-nowrap" data-date="{{ $transaction->date }}">
                             <div class="text-sm">{{ $transaction->name }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -81,38 +87,45 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                            @if(Auth::user()->role === 'admin')  <!-- Menampilkan tombol untuk admin -->
+                            @if(Auth::user()->role === 'admin') 
                                 <a href="{{ route('transactions.detail', $transaction->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-xs">Detail</a>
                                 <a href="{{ route('transactions.edit', $transaction->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-2 rounded text-xs">Edit</a>
                                 <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded text-xs" type="button" onclick="openModal('{{ $transaction->id }}')">Delete</button>
-                            @elseif(Auth::user()->role === 'user')  <!-- Menampilkan tombol hanya untuk user -->
+                            @elseif(Auth::user()->role === 'user') 
                                 <a href="{{ route('transactions.detail', $transaction->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-xs">Detail</a>
                             @endif
                         </td>
                     </tr>
                     @endforeach
-                </tbody>
+                </tbody>                
             </table>
         </div>
     </div>
 
     <!-- Modal for Deleting Transaction -->
-    <div id="modal-delete" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="modal-delete" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
+        role="dialog" aria-modal="true">
         <div class="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true"></span>
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div
+                class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
-                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                            <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <div
+                            class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                            <svg class="h-6 w-6 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </div>
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Hapus Transaksi</h3>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Hapus Transaksi
+                            </h3>
                             <div class="mt-2">
-                                <p class="text-sm text-gray-500">Apakah Anda yakin ingin menghapus transaksi ini? Tindakan ini tidak bisa dibatalkan.</p>
+                                <p class="text-sm text-gray-500">Apakah Anda yakin ingin menghapus transaksi ini?
+                                    Tindakan ini tidak bisa dibatalkan.</p>
                             </div>
                         </div>
                     </div>
@@ -121,11 +134,14 @@
                     <form id="delete-form" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                        <button type="submit"
+                            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
                             Hapus
                         </button>
                     </form>
-                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm" onclick="closeModal()">
+                    <button type="button"
+                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
+                        onclick="closeModal()">
                         Batal
                     </button>
                 </div>
@@ -140,16 +156,19 @@
             const status = document.getElementById('filterStatus').value.toLowerCase();
 
             const rows = document.querySelectorAll('#transactionTable tbody tr');
-            
-            rows.forEach(row => {
-                const rowDate = row.cells[1].textContent;
-                const rowStatus = row.cells[3].textContent.toLowerCase();
-                const rowTransaction = row.cells[0].textContent.toLowerCase();
-                
-                const matchesSearch = searchTerm ? rowTransaction.includes(searchTerm) : true;
-                const matchesDate = date ? rowDate.includes(date) : true;
-                const matchesStatus = status ? rowStatus.includes(status) : true;
 
+            rows.forEach(row => {
+                const transactionId = row.cells[0].textContent.toLowerCase(); // Kolom No. Transaksi
+                const rowDate = row.cells[1].getAttribute(
+                'data-date'); // Data Tanggal (gunakan atribut data-date di template)
+                const rowStatus = row.cells[4].textContent.toLowerCase(); // Kolom Status
+
+                // Logika pencocokan
+                const matchesSearch = searchTerm ? transactionId.includes(searchTerm) : true;
+                const matchesDate = date ? rowDate === date : true;
+                const matchesStatus = status ? rowStatus === status : true;
+
+                // Tampilkan baris jika semua kondisi cocok
                 if (matchesSearch && matchesDate && matchesStatus) {
                     row.style.display = '';
                 } else {
