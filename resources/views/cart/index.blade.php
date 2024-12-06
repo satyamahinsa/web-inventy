@@ -1,17 +1,25 @@
 <x-app-layout>
-
-    <!-- Header Slot -->
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-white leading-tight">
+        <h2 class="font-semibold text-xl text-white leading-tight">
             {{ __('Keranjang Belanja') }}
         </h2>
         <div class="flex items-center">
+            <div class="mr-6 flex items-center gap-2">
+                <i class="fas fa-sun text-yellow-400 text-lg"></i>
+                <input type="checkbox" id="toggleMode" class="hidden">
+                <label for="toggleMode">
+                    <div class="flex items-center w-9 h-5 bg-slate-500 rounded-full p-1 cursor-pointer">
+                        <div class="w-4 h-4 bg-white rounded-full toggleCircle"></div>
+                    </div>
+                </label>
+                <i class="fas fa-moon text-white text-lg"></i>
+            </div>
             <button class="mr-6">
-                <i class="fas fa-bell text-gray-500"></i>
+                <i class="fas fa-bell text-white"></i>
             </button>
             <div class="flex items-center space-x-3">
                 <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-                <span class="text-gray-900 font-medium dark:text-white">{{ Auth::user()->name }}</span>
+                <span class="text-white font-medium">{{ Auth::user()->name }}</span>
             </div>
         </div>
     </x-slot>

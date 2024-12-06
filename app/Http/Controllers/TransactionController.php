@@ -118,4 +118,5 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
         return view('transactions.invoice', compact('transaction'));
     }
+    
 }
