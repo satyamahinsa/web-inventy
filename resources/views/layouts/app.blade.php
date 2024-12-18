@@ -8,7 +8,7 @@
     <link href="{{ asset('styleProduct/styles.css') }}" rel="stylesheet">
 
     <title>{{ config('app.name', 'Inventy') }}</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -123,6 +123,8 @@
                 closeIcon.classList.remove('hidden'); // Tampilkan ikon silang
             }
         }
+        
+
     </script>
 </body>
 </html>

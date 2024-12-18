@@ -9,13 +9,17 @@
         </p>
     </header>
 
+    <!-- Tombol untuk membuka modal -->
     <x-danger-button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Delete Account') }}</x-danger-button>
+    >
+        {{ __('Hapus Akun') }}
+    </x-danger-button>
 
+    <!-- Modal Konfirmasi -->
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+        <form id="deleteAccountForm" method="post" action="{{ route('profile.destroy') }}" class="p-6">
             @csrf
             @method('delete')
 
@@ -27,6 +31,7 @@
                 {{ __('Setelah akun Anda dihapus, semua sumber daya dan datanya akan dihapus secara permanen. Masukkan kata sandi Anda untuk mengonfirmasi bahwa Anda ingin menghapus akun Anda secara permanen.') }}
             </p>
 
+            <!-- Input Password -->
             <div class="mt-6">
                 <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
 
@@ -38,15 +43,21 @@
                     placeholder="{{ __('Password') }}"
                 />
 
-                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                <!-- Error jika password salah atau kosong -->
+                @if ($errors->userDeletion->has('password'))
+                    <p class="bg-red-500/30 text-red-500 text-sm p-2 mt-2 rounded">
+                        {{ $errors->userDeletion->first('password') == 'The password field is required.' ? 'Password harus diisi' : 'Password salah' }}
+                    </p>
+                @endif
             </div>
 
+            <!-- Tombol tindakan -->
             <div class="mt-6 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
                     {{ __('Batal') }}
                 </x-secondary-button>
 
-                <x-danger-button class="ms-3">
+                <x-danger-button class="ms-3" onclick="showDeleteConfirmation(event)">
                     {{ __('Hapus Akun') }}
                 </x-danger-button>
             </div>
