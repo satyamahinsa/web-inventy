@@ -129,43 +129,62 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        // SweetAlert untuk tambah produk
         document.querySelector('#add-product-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            Swal.fire({
-                title: 'Yakin ingin menambah produk?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Tambahkan',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit();
-                }
-            });
-        });
-
-        // SweetAlert untuk hapus produk
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const form = this.closest('.delete-form');
+    
+            const name = document.querySelector('#name').value.trim();
+            const description = document.querySelector('#description').value.trim();
+            const price = document.querySelector('#price').value.trim();
+            const stock = document.querySelector('#stock').value.trim();
+            const image = document.querySelector('#image').files.length;
+    
+            let errorMessages = [];
+    
+            if (!name) {
+                errorMessages.push('Nama produk harus diisi.');
+            }
+    
+            if (!description) {
+                errorMessages.push('Deskripsi produk harus diisi.');
+            }
+    
+            if (!price) {
+                errorMessages.push('Harga produk harus diisi.');
+            } else if (isNaN(price) || price <= 0) {
+                errorMessages.push('Harga harus berupa angka yang valid dan lebih besar dari 0.');
+            }
+    
+            if (!stock) {
+                errorMessages.push('Stok produk harus diisi.');
+            } else if (isNaN(stock) || stock < 0) {
+                errorMessages.push('Stok harus berupa angka yang valid dan tidak negatif.');
+            }
+    
+            if (!image) {
+                errorMessages.push('Gambar produk harus diunggah.');
+            }
+    
+            if (errorMessages.length > 0) {
                 Swal.fire({
-                    title: 'Yakin ingin menghapus produk ini?',
-                    text: "Data produk akan hilang secara permanen!",
-                    icon: 'warning',
+                    icon: 'error',
+                    title: 'Validasi Gagal',
+                    html: `${errorMessages.map(msg => `${msg}`).join('')}`,
+                    confirmButtonText: 'Perbaiki'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Yakin ingin menambah produk?',
+                    icon: 'question',
                     showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Ya, Hapus!',
+                    confirmButtonText: 'Ya, Tambahkan',
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit();
+                        this.submit();
                     }
                 });
-            });
+            }
         });
-
         // SweetAlert untuk pesan sukses
         @if (session('success'))
             Swal.fire({
