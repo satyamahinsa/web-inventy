@@ -90,6 +90,9 @@
                 </tbody>
             </table>
         </div>
+        <div id="noDataMessage" class="hidden text-center py-4 bg-red-100 text-red-600 font-semibold rounded-lg">
+            Tidak ada data produk yang ditemukan.
+        </div>
     </div>
 
     <!-- JavaScript for Searching Functionality -->
@@ -98,7 +101,10 @@
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const category = document.getElementById('filterCategory').value;
             const rows = document.querySelectorAll('#transactionTable tbody tr');
+            const noDataMessage = document.getElementById('noDataMessage');
             
+            let visibleRowCount = 0;
+
             rows.forEach(row => {
                 const rowTransaction = row.cells[1].textContent.toLowerCase();
                 const rowCategory = row.cells[2].textContent.toLowerCase();
@@ -107,10 +113,18 @@
 
                 if (matchesSearch && matchesCategory) {
                     row.style.display = '';
+                    visibleRowCount++;
                 } else {
                     row.style.display = 'none';
                 }
             });
+
+            // Tampilkan atau sembunyikan pesan "Tidak ada data"
+            if (visibleRowCount === 0) {
+                noDataMessage.classList.remove('hidden');
+            } else {
+                noDataMessage.classList.add('hidden');
+            }
         }
     </script>
 </x-app-layout>

@@ -19,7 +19,7 @@
             </button>
             <div class="flex items-center space-x-3">
                 <img class="w-10 h-10 rounded-full" src="https://via.placeholder.com/150" alt="User Avatar">
-                <span class="text-white font-medium">{{ Auth::user()->name }}</span>
+                {{-- <span class="text-white font-medium">{{ Auth::user()->name }}</span> --}}
             </div>
         </div>
     </x-slot>

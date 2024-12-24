@@ -100,6 +100,9 @@
                 </tbody>
             </table>
         </div>
+        <div id="noDataMessage" class="hidden text-center py-4 bg-red-100 text-red-600 font-semibold rounded-lg">
+            Tidak ada data transaksi yang ditemukan.
+        </div>
     </div>
 
     <div id="modal-delete" class="fixed z-10 inset-0 overflow-y-auto hidden" aria-labelledby="modal-title"
@@ -165,7 +168,10 @@
 
             let table = document.getElementById('transactionTable');
             let rows = table.getElementsByTagName('tr');
-            
+            let noDataMessage = document.getElementById('noDataMessage');
+
+            let hasVisibleRow = false; // Variabel untuk melacak apakah ada baris yang ditampilkan
+
             for (let i = 1; i < rows.length; i++) {
                 let row = rows[i];
                 let cells = row.getElementsByTagName('td');
@@ -189,11 +195,20 @@
 
                 if (showRow) {
                     row.style.display = "";
+                    hasVisibleRow = true; // Set true jika ada baris yang ditampilkan
                 } else {
                     row.style.display = "none";
                 }
             }
+
+            // Tampilkan atau sembunyikan pesan "Tidak ada data" berdasarkan hasil
+            if (hasVisibleRow) {
+                noDataMessage.classList.add('hidden');
+            } else {
+                noDataMessage.classList.remove('hidden');
+            }
         }
+
 
         function openModal(transactionId) {
             document.getElementById('delete-form').action = '/transactions/' + transactionId;

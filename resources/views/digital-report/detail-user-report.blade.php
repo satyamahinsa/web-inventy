@@ -93,23 +93,37 @@
                 </tbody>
             </table>
         </div>
+        <div id="noDataMessage" class="hidden text-center py-4 bg-red-100 text-red-600 font-semibold rounded-lg">
+            Tidak ada data pelanggan yang ditemukan.
+        </div>
     </div>
 
     <script>
         function filterTable() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const rows = document.querySelectorAll('#userTable tbody tr');
+            const noDataMessage = document.getElementById('noDataMessage');
             
+            let visibleRowCount = 0;
+
             rows.forEach(row => {
                 const rowTransaction = row.cells[1].textContent.toLowerCase();
                 const matchesSearch = searchTerm ? rowTransaction.includes(searchTerm) : true;
-                
+
                 if (matchesSearch) {
                     row.style.display = '';
+                    visibleRowCount++;
                 } else {
                     row.style.display = 'none';
                 }
             });
+
+            // Tampilkan atau sembunyikan pesan "Tidak ada data"
+            if (visibleRowCount === 0) {
+                noDataMessage.classList.remove('hidden');
+            } else {
+                noDataMessage.classList.add('hidden');
+            }
         }
     </script>
 </x-app-layout>
