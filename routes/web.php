@@ -76,6 +76,7 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 Route::get('/digital-report/detail-product-report', [ProductController::class, 'sort'])->name('digital-report.detail-product-report');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/digital-report/detail-product-report', [ProductController::class, 'category'])->name('digital-report.detail-product-report');
 
 // Route cart Keranjang

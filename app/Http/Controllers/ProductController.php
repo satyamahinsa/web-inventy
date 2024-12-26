@@ -189,4 +189,5 @@ class ProductController extends Controller
         $products = Product::orderBy('stock', $order)->get();
         return view('digital-report.detail-product-report', compact('products'));
     }
+    
 }
