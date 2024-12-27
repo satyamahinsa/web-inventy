@@ -19,6 +19,18 @@ class DigitalReportController extends Controller
         $completedOrders = Transaction::where('status', 'completed')->count();
         $totalCategory = Product::distinct('category_id')->count('category_id');
         $totalProduct = Product::count('id');
+        $userWithMaxSpent = Transaction::select('user_id', Transaction::raw('SUM(total_amount) as total_spent'))
+            ->groupBy('user_id')
+            ->orderByDesc('total_spent')
+            ->first();
+
+        $topSpender = null;
+        if ($userWithMaxSpent) {
+            $topSpender = User::select('id', 'name')
+                ->where('id', $userWithMaxSpent->user_id)
+                ->first();
+            $topSpender->total_spent = $userWithMaxSpent->total_spent;
+        }
 
         return view('digital-report.index', [
             'totalTransactions' => $totalTransactions,
@@ -29,6 +41,7 @@ class DigitalReportController extends Controller
             'completedOrders' => $completedOrders,
             'totalCategory' => $totalCategory,
             'totalProduct' => $totalProduct,
+            'topSpender' => $topSpender
         ]);
     }
 

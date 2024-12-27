@@ -140,7 +140,7 @@
                             {{-- <span class="text-green-500 font-semibold text-sm">+8.43%</span> --}}
                         </div>
                     </div>
-                    <p class="text-2xl font-bold text-gray-800 mt-2">{{ $totalCustomers }}</p>
+                    <p class="text-2xl font-bold text-gray-800 mt-2">{{$topSpender->name}}</p>
                 </div>
             </div>
         </div>
