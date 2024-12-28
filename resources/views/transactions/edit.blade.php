@@ -29,10 +29,11 @@
         <div class="mx-auto max-w-2xl lg:max-w-7xl">
             <div class="flex justify-end items-center">
                 <div class="flex space-x-2">
-                    <button onclick="window.print()" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
+                    <a href="{{ route('transactions.download-pdf', ['id' => $transaction->id]) }}"
+                        class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
                         <i class="fas fa-print mr-2"></i>
                         Print Invoice
-                    </button>
+                    </a>
                 </div>
             </div>
 

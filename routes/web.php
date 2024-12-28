@@ -10,12 +10,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Auth\RegisteredUserController;
-
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/user', [UserController::class, 'index'])->name('dashboard.user');
@@ -52,6 +53,8 @@ Route::get('/transactions/create', [TransactionController::class, 'create'])->na
 Route::post('/transactions/store', [TransactionController::class, 'store'])->name('transactions.store');
 
 Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.detail');
+
+Route::get('/transactions/{id}/download-pdf', [TransactionController::class, 'downloadPdf'])->name('transactions.download-pdf');
 
 Route::get('/transactions/{id}/edit', [TransactionController::class, 'edit'])->name('transactions.edit');
 

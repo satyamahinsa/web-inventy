@@ -118,5 +118,11 @@ class TransactionController extends Controller
         $transaction = Transaction::findOrFail($id);
         return view('transactions.invoice', compact('transaction'));
     }
+
+    public function downloadPdf($id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        return view('transactions.download-pdf', compact('transaction'));
+    }
     
 }
