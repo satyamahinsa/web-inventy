@@ -5,14 +5,14 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Product;
 use App\Models\Category;
-use App\Services\ProductService; 
+use App\Services\ProductService;
 
 class CreateProductTest extends TestCase
 {
     public function test_create_product()
     {
         $category = Category::first();
-        
+
         $this->assertNotNull($category, 'Kategori harus tersedia di database sebelum pengujian.');
 
         $data = [
@@ -23,7 +23,7 @@ class CreateProductTest extends TestCase
             'category_id' => $category->id,
         ];
 
-        $productService = new ProductService(); 
+        $productService = new ProductService();
 
         $product = $productService->createProduct($data);
 
