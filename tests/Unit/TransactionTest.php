@@ -33,10 +33,6 @@ class TransactionTest extends TestCase
         $response->assertViewHas('transactions');
     }
 
-    public function test_show_transaction_detail()
-    {
-    }
-
     public function test_update_transaction()
     {
         $order = Order::first();
